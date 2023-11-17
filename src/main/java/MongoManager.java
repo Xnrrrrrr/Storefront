@@ -18,6 +18,7 @@ public class MongoManager {
     private MongoCollection<Document> collection;
 
     // Constructor to initialize the MongoDB client, connect to the specified database, and get the collection
+
     public MongoManager(String connectionString, String databaseName, String collectionName) {
         // Create a connection string with the provided MongoDB connection URI
         ConnectionString connString = new ConnectionString(connectionString);
@@ -79,6 +80,29 @@ public class MongoManager {
         return items;
     }
 
+    public List<Item> getSelectedProducts(List<Integer> productIds) {
+        List<Item> selectedProducts = new ArrayList<>();
+
+        System.out.println("Product IDs: " + productIds);       // debug statement
+
+        // Create a query document to find Items by productIds
+        Document query = new Document("productId", new Document("$in", productIds));
+
+        // Execute the query and get the result
+        FindIterable<Document> result = collection.find(query);
+
+        System.out.println("Query: " + query);      // debugging statement
+
+        // Convert each document to an Item and add to the list
+        for (Document document : result) {
+            selectedProducts.add(documentToItem(document));
+
+            System.out.println("Selected Products: " + selectedProducts);       // debugging statement
+        }
+
+        return selectedProducts;
+    }
+
     // Update an existing Item in the MongoDB collection
     public void updateItem(Item item) {
         // Get the productId of the Item to be updated
@@ -123,6 +147,21 @@ public class MongoManager {
 
         return new Item(productId, name, price, category, description);
     }
+
+    // Insert an Invoice into the MongoDB collection
+    public void insertInvoice(Invoice invoice) {
+        // Convert Invoice to MongoDB Document
+        Document document = invoiceToDocument(invoice);
+
+        // Insert the document into the collection
+        collection.insertOne(document);
+    }
+
+    // Helper method to convert an Invoice to a MongoDB Document
+    private Document invoiceToDocument(Invoice invoice) {
+        return invoice.toDocument();
+    }
+
 
     // Method to close the MongoDB client when done
     public void close() {

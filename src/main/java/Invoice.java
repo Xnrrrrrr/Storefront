@@ -1,5 +1,8 @@
 import java.util.Date;
 import java.util.List;
+import org.bson.Document;
+import java.util.ArrayList;
+
 
 public class Invoice {
     private int orderNumber;
@@ -34,9 +37,45 @@ public class Invoice {
         }
     }
 
+    public Document toDocument() {
+        Document document = new Document();
+        document.append("orderNumber", this.orderNumber)
+                .append("date", this.date)
+                .append("customerName", this.customerName)
+                .append("customerAddress", this.customerAddress)
+                .append("subtotal", this.subtotal)
+                .append("shippingCost", this.shippingCost)
+                .append("taxRate", this.taxRate)
+                .append("total", this.total)
+                .append("paymentMethod", this.paymentMethod)
+                .append("transactionId", this.transactionId)
+                .append("amountPaid", this.amountPaid);
+
+        return document;
+    }
+
+
+
     private double calculateShippingCost() {
         // Hardcoded shipping cost
         return 10.0;
+    }
+
+    private List<Document> productsToDocumentList(List<Item> products) {
+        List<Document> documentList = new ArrayList<>();
+
+        for (Item product : products) {
+            Document productDocument = new Document()
+                    .append("productId", product.getProductId())
+                    .append("name", product.getName())
+                    .append("price", product.getPrice())
+                    .append("category", product.getCategory().toString())
+                    .append("description", product.getDescription());
+
+            documentList.add(productDocument);
+        }
+
+        return documentList;
     }
 
     private double calculateTotal() {
@@ -77,6 +116,7 @@ public class Invoice {
     }
 
     public void setProducts(List<Item> products) {
+        System.out.println("Set products: " + products);        //debug
         this.products = products;
     }
 
@@ -131,7 +171,6 @@ public class Invoice {
 
     public void printInvoice() {
         // Print the invoice details
-        // You can format the output as needed for your application
 
         System.out.println("-----------------------------------------------------------");
         System.out.println("|                        INVOICE                          |");
@@ -143,6 +182,9 @@ public class Invoice {
 
         // Print product details
         System.out.println("|                   PURCHASED ITEMS                       |");
+        // Debug print statement
+        System.out.println("Products in invoice: " + products);                                     // debug
+
         for (Item product : products) {
             System.out.println("| " + product.getName() + " - $" + product.getPrice());
         }

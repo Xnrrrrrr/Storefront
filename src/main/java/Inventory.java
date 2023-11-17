@@ -61,18 +61,22 @@ public class Inventory {
         return items;
     }
 
-    public Item getItemById(int productId) {
-        for (int x = 0; x < 6; x++) {
-            for (int y = 0; y < 6; y++) {
-                for (int z = 0; z < 6; z++) {
-                    if (items[x][y][z] != null && items[x][y][z].getProductId() == productId) {
-                        return items[x][y][z];
+    public Item getItemById(int itemId) {
+        for (int x = 0; x < items.length; x++) {
+            for (int y = 0; y < items[x].length; y++) {
+                for (int z = 0; z < items[x][y].length; z++) {
+                    Item item = items[x][y][z];
+                    if (item != null && item.getProductId() == itemId) {
+                        System.out.println("Debug: Found item by ID " + itemId + ": " + item);
+                        return item;
                     }
                 }
             }
         }
-        return null; // Item not found
+        System.out.println("Debug: Item not found for ID " + itemId);
+        return null;
     }
+
 
 
 }

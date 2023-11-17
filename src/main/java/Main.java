@@ -9,16 +9,19 @@ import java.util.List;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class Main {
 
-    private static String email;  // Add this line
+    private static String email;                                             //class level variable
+
+    private static List<Item> selectedProducts = new ArrayList<>();         //class level variable intializing a blank list
 
     private static final String DATABASE_NAME = "Storefront";
     private static final String CUSTOMERS_COLLECTION_NAME = "Customers";
 
-    private static final String MONGO_URI = "mongodb+srv://ganggang89001:@storefront.uzrfcey.mongodb.net/";
+    private static final String MONGO_URI = "mongodb+srv://ganggang89001:tru3XjwC825BN47g@storefront.uzrfcey.mongodb.net/";
 
     public static void main(String[] args) {
         Inventory inventory = new Inventory();
@@ -56,7 +59,7 @@ public class Main {
         System.out.println("Enter your sign-in information:");
 
         System.out.print("Email: ");
-        String email = scanner.next();
+        email = scanner.next();
 
         System.out.print("Password: ");  // You may need to handle password securely (e.g., use char[] and consider hashing)
         String password = scanner.next();
@@ -161,8 +164,6 @@ public class Main {
         double total = 0.00;
         Item[][][] items = inventory.getItems();
 
-        List<Item> selectedProducts = new ArrayList<>();
-
         System.out.println("--------------------------------------");
         System.out.println("|                                    |");
         System.out.println("| Welcome to TRAVELGREEN Storefront! |");
@@ -251,6 +252,7 @@ public class Main {
                 if (selectedProduct != null && selectedProduct.getCategory().ordinal() == selectedCategory - 1) {
                     total += selectedProduct.getPrice();
                     System.out.println("Added " + selectedProduct.getName() + " to your cart.");
+                    selectedProducts.add(selectedProduct);
                 } else {
                     System.out.println("Item not found in the selected category. Please enter a valid item number.");
                 }
@@ -301,11 +303,12 @@ public class Main {
         System.out.println("Nickels: " + nickels);
         System.out.println("Pennies: " + pennies);
 
-        double total = 0.00;
-
-        // Corrected method invocation
-        List<Item> selectedProducts = new ArrayList<>();
+        selectedProducts = new ArrayList<>();
+        double total = 0;
         generateAndDisplayInvoice(email, selectedProducts, total);
+
+        total = 0.00;
+
     }
 
     // Corrected method signature
@@ -324,18 +327,31 @@ public class Main {
             invoice.setCustomerDetails(customer);
 
             // Add selected products to the invoice
-            invoice.setProducts(selectedProducts);
+            invoice.setProducts(selectedProducts);          /// not being set before this its a fucking issue and its aggravating as fuck
+
+            // Debug print statement
+            System.out.println("Selected products: " + selectedProducts);
 
             // Calculate totals
+
             invoice.calculateTotals();
+            System.out.println("Invoice after calculateTotals:");                   // debug statement
 
             // Display the invoice
             invoice.printInvoice();
+
+            // Insert the invoice into MongoDB
+            MongoManager mongoManager = new MongoManager(MONGO_URI, DATABASE_NAME, "Invoices");
+            mongoManager.insertInvoice(invoice);
+
+            // Close the MongoDB client when done
+            mongoManager.close();
         } else {
             System.out.println("Failed to fetch customer details. Unable to generate the invoice.");
         }
     }
 
+        // wtf
     // Method to fetch customer details from the database based on email
     private static Customer fetchCustomerDetails(String customerEmail) {
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
@@ -373,8 +389,11 @@ public class Main {
         return new Address(street, city, state, zipCode, email);
     }
 
-    private static int generateOrderNumber() {
-        return 0;
+    private static final AtomicInteger orderCounter = new AtomicInteger(0);
+    public static int generateOrderNumber() {
+        long timestamp = System.currentTimeMillis();
+        int uniqueId = orderCounter.getAndIncrement();
+        return (int) (timestamp % 1000000) * 10000 + uniqueId;
     }
 
 }

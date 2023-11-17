@@ -3,7 +3,7 @@ public class Item {
     private int productId;
     private String name;
 
-    private ProductCategory category;
+    public ProductCategory category;
 
     private double price;
     private String description;
@@ -35,4 +35,10 @@ public class Item {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "Item ID: " + productId + ", Name: " + name + ", Price: $" + price + ", Description: " + description;
+    }
+
 }

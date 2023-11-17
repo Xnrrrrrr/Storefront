@@ -1,17 +1,161 @@
-public class Invoice {
-    private Customer customer;
-    private double total;
+import java.util.Date;
+import java.util.List;
 
-    public Invoice(Customer customer, double total) {
-        this.customer = customer;
-        this.total = total;
+public class Invoice {
+    private int orderNumber;
+    private Date date;
+    private String customerName;
+    private String customerAddress;
+    private List<Item> products;  // Assuming you have a list of items in your invoice
+    private double subtotal;
+    private double shippingCost;
+    private double taxRate;
+    private double total;
+    private String paymentMethod;
+    private String transactionId;
+    private double amountPaid;
+
+    // Constructors, getters, and setters
+
+
+
+    private double calculateSubtotal() {
+        double subtotal = 0.0;
+        for (Item product : products) {
+            subtotal += product.getPrice();
+        }
+        return subtotal;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public void setCustomerDetails(Customer customer) {
+        if (customer != null) {
+            this.customerName = customer.getcustomerName();
+            this.customerAddress = customer.getshippingAddress().toString();
+        }
+    }
+
+    private double calculateShippingCost() {
+        // Hardcoded shipping cost
+        return 10.0;
+    }
+
+    private double calculateTotal() {
+        double tax = subtotal * taxRate;
+        return subtotal + shippingCost + tax;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerAddress() {
+        return customerAddress;
+    }
+
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
+    }
+
+    public List<Item> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Item> products) {
+        this.products = products;
+    }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public double getShippingCost() {
+        return shippingCost;
+    }
+
+    public double getTaxRate() {
+        return taxRate;
     }
 
     public double getTotal() {
         return total;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public double getAmountPaid() {
+        return amountPaid;
+    }
+
+    public void setAmountPaid(double amountPaid) {
+        this.amountPaid = amountPaid;
+    }
+
+    // Other methods
+
+    public void calculateTotals() {
+        // Calculate subtotal, shipping cost, tax, and total
+        subtotal = calculateSubtotal();
+        shippingCost = calculateShippingCost();
+        total = calculateTotal();
+    }
+
+    public void printInvoice() {
+        // Print the invoice details
+        // You can format the output as needed for your application
+
+        System.out.println("-----------------------------------------------------------");
+        System.out.println("|                        INVOICE                          |");
+        System.out.println("| Order Number: " + orderNumber);
+        System.out.println("| Date: " + date);
+        System.out.println("| Customer: " + (customerName != null ? customerName : "null"));
+        System.out.println("| Address: " + (customerAddress != null ? customerAddress : "null"));
+        System.out.println("-----------------------------------------------------------");
+
+        // Print product details
+        System.out.println("|                   PURCHASED ITEMS                       |");
+        for (Item product : products) {
+            System.out.println("| " + product.getName() + " - $" + product.getPrice());
+        }
+
+        System.out.println("-----------------------------------------------------------");
+        System.out.println("| Subtotal: $" + subtotal);
+        System.out.println("| Shipping Cost: $" + shippingCost);
+        System.out.println("| Tax: $" + (subtotal * taxRate));
+        System.out.println("| Total: $" + total);
+        System.out.println("| Payment Method: " + paymentMethod);
+        System.out.println("| Transaction ID: " + transactionId);
+        System.out.println("| Amount Paid: $" + amountPaid);
+        System.out.println("| Change: $" + (amountPaid - total));
+        System.out.println("-----------------------------------------------------------");
     }
 }

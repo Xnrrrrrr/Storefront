@@ -16,12 +16,14 @@ public class Main {
 
     private static String email;                                             //class level variable
 
+    private static double total = 0.00;
+
     private static List<Item> selectedProducts = new ArrayList<>();         //class level variable intializing a blank list
 
     private static final String DATABASE_NAME = "Storefront";
     private static final String CUSTOMERS_COLLECTION_NAME = "Customers";
 
-    private static final String MONGO_URI = "mongodb+srv://ganggang89001:g@storefront.uzrfcey.mongodb.net/";
+    private static final String MONGO_URI = "mongodb+srv://ganggang89001:tru3XjwC825BN47g@storefront.uzrfcey.mongodb.net/";
 
     public static void main(String[] args) {
         Inventory inventory = new Inventory();
@@ -160,8 +162,7 @@ public class Main {
     private static void showProductCategories(Inventory inventory, Scanner scanner, DecimalFormat df) {
         // Your existing product category display logic
         // ...
-
-        double total = 0.00;
+        selectedProducts.clear();
         Item[][][] items = inventory.getItems();
 
         System.out.println("--------------------------------------");
@@ -303,11 +304,9 @@ public class Main {
         System.out.println("Nickels: " + nickels);
         System.out.println("Pennies: " + pennies);
 
-        selectedProducts = new ArrayList<>();
-        double total = 0;
-        generateAndDisplayInvoice(email, selectedProducts, total);
 
-        total = 0.00;
+        generateAndDisplayInvoice(email, selectedProducts,change);
+
 
     }
 
@@ -333,7 +332,6 @@ public class Main {
             System.out.println("Selected products: " + selectedProducts);
 
             // Calculate totals
-
             invoice.calculateTotals();
             System.out.println("Invoice after calculateTotals:");                   // debug statement
 
@@ -351,7 +349,7 @@ public class Main {
         }
     }
 
-        // wtf
+
     // Method to fetch customer details from the database based on email
     private static Customer fetchCustomerDetails(String customerEmail) {
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {

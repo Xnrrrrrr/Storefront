@@ -1,4 +1,5 @@
 import org.bson.Document;
+import java.util.List;
 
 public class Customer {
     private String customerName;
@@ -6,9 +7,11 @@ public class Customer {
     private Address shippingAddress;
     private Address billingAddress;
 
+
     // Constructors, getters, setters, and toString methods remain unchanged...
 
     // New constructor for creating a customer with provided information
+
     public Customer(String customerName, String customerEmail, Address shippingAddress, Address billingAddress) {
         this.customerName = customerName;
         this.customerEmail = customerEmail;

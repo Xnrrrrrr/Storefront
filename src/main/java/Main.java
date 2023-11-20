@@ -23,7 +23,7 @@ public class Main {
     private static final String DATABASE_NAME = "Storefront";
     private static final String CUSTOMERS_COLLECTION_NAME = "Customers";
 
-    private static final String MONGO_URI = "mongodb+srv://ganggang89001:tru3XjwC825BN47g@storefront.uzrfcey.mongodb.net/";
+    private static final String MONGO_URI = "mongodb+srv://ganggang89001:@storefront.uzrfcey.mongodb.net/";
 
     public static void main(String[] args) {
         Inventory inventory = new Inventory();

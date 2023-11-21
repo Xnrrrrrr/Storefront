@@ -14,9 +14,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
 
+    public static double amountPaid;
+
+    public static double total;
+    public static final double shipping = 10.00;
+
     private static String email;                                             //class level variable
 
-    private static double total = 0.00;
 
     private static List<Item> selectedProducts = new ArrayList<>();         //class level variable intializing a blank list
 
@@ -224,7 +228,7 @@ public class Main {
                 System.out.println("Invalid category number. Please enter a valid category number.");
                 continue;
             } else if (selectedCategory == 7) {
-            processReturns(scanner);
+            processReturns(scanner, inventory, df);
             break; // Exit the loop after processing returns
         }
 
@@ -277,13 +281,14 @@ public class Main {
         double amountPaid = scanner.nextDouble();
 
         // Calculate the change
-        double change = amountPaid - total;
+        double change = amountPaid - (total + shipping);
+        df.format(change);
 
         // Display the change to the user with two decimal places
         System.out.println("Change: $" + df.format(change));
 
         // Provide change in denominations
-        provideChangeInDenominations(change);
+        provideChangeInDenominations(change, amountPaid);
 
         // Thank the user
         System.out.println("-----------------------------------------------------------");
@@ -295,19 +300,23 @@ public class Main {
         System.out.println("-----------------------------------------------------------");
     }
 
-    private static void provideChangeInDenominations(double change) {
+    private static void provideChangeInDenominations(double change, double amountPaid) {
+
+        change = Math.round(change * 100d) / 100d;
         // Convert change to cents
         int changeInCents = (int) (change * 100);
+        // Convert change to cents
 
         // Calculate and display change in denominations
         int dollars = changeInCents / 100;
         changeInCents %= 100;
         int quarters = changeInCents / 25;
-        changeInCents %= 25;
+        changeInCents = changeInCents - (quarters * 25);
         int dimes = changeInCents / 10;
-        changeInCents %= 10;
+        changeInCents = changeInCents - (dimes * 10);
         int nickels = changeInCents / 5;
-        int pennies = changeInCents % 5;
+        changeInCents = changeInCents - (nickels * 5);
+        int pennies = changeInCents;
 
         System.out.println("Your change in denominations:");
         System.out.println("Dollars: " + dollars);
@@ -317,14 +326,14 @@ public class Main {
         System.out.println("Pennies: " + pennies);
 
 
-        generateAndDisplayInvoice(email, selectedProducts,change);
-
+        generateAndDisplayInvoice(email, selectedProducts,amountPaid, total);
 
     }
 
     // Corrected method signature
-    private static void generateAndDisplayInvoice(String customerEmail, List<Item> selectedProducts, double amountPaid) {
+    private static void generateAndDisplayInvoice(String customerEmail, List<Item> selectedProducts, double amountPaid, double total) {
         // Generate an invoice object
+        Main.amountPaid = amountPaid;
         Invoice invoice = new Invoice();
         invoice.setOrderNumber(generateOrderNumber());
         invoice.setDate(new Date());
@@ -406,7 +415,7 @@ public class Main {
         return (int) (timestamp % 1000000) * 10000 + uniqueId;
     }
 
-    private static void processReturns(Scanner scanner) {
+    private static void processReturns(Scanner scanner, Inventory inventory, DecimalFormat df ) {
         System.out.print("Enter the item ID you want to return (or press 0 to go back): ");
         int returnItemId = scanner.nextInt();
 
@@ -431,6 +440,8 @@ public class Main {
         } else {
             System.out.println("Item not found in the Products collection or not purchased.");
         }
+
+        showProductCategories(inventory, scanner, df);
     }
 
     // Helper method to check if a product was purchased (unavailable) in the database

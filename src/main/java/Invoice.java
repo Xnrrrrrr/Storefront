@@ -16,7 +16,12 @@ public class Invoice {
     private double total;
     private String paymentMethod;
     private String transactionId;
-    private double amountPaid;
+    Main a = new Main();
+    double amtPaid = a.amountPaid;
+    Main b = new Main();
+    double iTotal = b.total;
+    private double newTotal = iTotal + Main.shipping;
+    private double change = amtPaid - newTotal;
 
     // Constructors, getters, and setters
 
@@ -49,7 +54,7 @@ public class Invoice {
                 .append("total", this.total)
                 .append("paymentMethod", this.paymentMethod)
                 .append("transactionId", this.transactionId)
-                .append("amountPaid", this.amountPaid);
+                .append("amountPaid", this.amtPaid);
 
         return document;
     }
@@ -153,11 +158,11 @@ public class Invoice {
     }
 
     public double getAmountPaid() {
-        return amountPaid;
+        return amtPaid;
     }
 
     public void setAmountPaid(double amountPaid) {
-        this.amountPaid = amountPaid;
+        this.amtPaid = amountPaid;
     }
 
     // Other methods
@@ -166,7 +171,7 @@ public class Invoice {
         // Calculate subtotal, shipping cost, tax, and total
         subtotal = calculateSubtotal();
         shippingCost = calculateShippingCost();
-        total = calculateTotal();
+        iTotal = calculateTotal();
     }
 
     public void printInvoice() {
@@ -193,11 +198,11 @@ public class Invoice {
         System.out.println("| Subtotal: $" + subtotal);
         System.out.println("| Shipping Cost: $" + shippingCost);
         System.out.println("| Tax: $" + (subtotal * taxRate));
-        System.out.println("| Total: $" + total);
+        System.out.println("| Total: $" + newTotal);
         System.out.println("| Payment Method: " + paymentMethod);
         System.out.println("| Transaction ID: " + transactionId);
-        System.out.println("| Amount Paid: $" + amountPaid);
-        System.out.println("| Change: $" + (amountPaid - total));
+        System.out.println("| Amount Paid: $" + amtPaid);
+        System.out.println("| Change: $" + Math.round(change * 100d) / 100d);
         System.out.println("-----------------------------------------------------------");
     }
 }

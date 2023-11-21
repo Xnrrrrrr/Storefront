@@ -10,6 +10,10 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 
 public class Main {
@@ -29,10 +33,11 @@ public class Main {
 
     private static final String MONGO_URI = "mongodb+srv://ganggang89001:@storefront.uzrfcey.mongodb.net/";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Inventory inventory = new Inventory();
         Scanner scanner = new Scanner(System.in);
         DecimalFormat df = new DecimalFormat("#.##");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Welcome to TRAVELGREEN Storefront!");
 
@@ -51,7 +56,7 @@ public class Main {
                     showProductCategories(inventory, scanner, df);
                 }
             } else if (signInOrRegister == 2) {
-                signUpNewCustomer(scanner);
+                signUpNewCustomer(br);
                 System.out.println("Registration successful. You can now sign in.");
             } else {
                 System.out.println("Invalid option. Please choose a valid option.");
@@ -65,9 +70,9 @@ public class Main {
         System.out.println("Enter your sign-in information:");
 
         System.out.print("Email: ");
-        email = scanner.next();
+        email = scanner.next().toLowerCase();
 
-        System.out.print("Password: ");  // You may need to handle password securely (e.g., use char[] and consider hashing)
+        System.out.print("Password: ");  // You may need to handle password securely (e.g., use char[] and consider hashing, NEEDS OBFUSCATION)F
         String password = scanner.next();
 
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
@@ -91,23 +96,23 @@ public class Main {
     }
 
 
-    private static Customer signUpNewCustomer(Scanner scanner) {
+    private static Customer signUpNewCustomer(BufferedReader br) throws IOException {
         System.out.println("Enter your sign-up information:");
 
         System.out.print("Customer Name: ");
-        String customerName = scanner.next();
+        String customerName = br.readLine();
 
         System.out.print("Email: ");
-        String email = scanner.next();
+        String email = br.readLine().toLowerCase();
 
         System.out.print("Password: ");
-        String password = scanner.next();  // You may want to hash the password for security
+        String password = br.readLine();  // You may want to hash the password for security
 
-        System.out.println("Enter your shipping address:");
-        Address shippingAddress = getAddressInformation(scanner, "Shipping", email);
+        System.out.println("ENTER YOUR SHIPPING ADDRESS");
+        Address shippingAddress = getAddressInformation(br, "Shipping", email);
 
-        System.out.println("Enter your billing address:");
-        Address billingAddress = getAddressInformation(scanner, "Billing", email);
+        System.out.println("ENTER YOUR BILLING ADDRESS");
+        Address billingAddress = getAddressInformation(br, "Billing", email);
 
 
         // Create a new customer
@@ -146,20 +151,20 @@ public class Main {
 
 
 
-    private static Address getAddressInformation(Scanner scanner, String addressType, String email) {
+    private static Address getAddressInformation(BufferedReader br, String addressType, String email) throws IOException {
         System.out.println(addressType + " Address:");
 
         System.out.print("Street: ");
-        String street = scanner.next();
+        String street = br.readLine();
 
         System.out.print("City: ");
-        String city = scanner.next();
+        String city = br.readLine();
 
         System.out.print("State: ");
-        String state = scanner.next();
+        String state = br.readLine().toUpperCase();
 
         System.out.print("Zip Code: ");
-        String zipCode = scanner.next();
+        String zipCode = br.readLine();
 
         return new Address(street, city, state, zipCode, email);
     }
@@ -273,8 +278,46 @@ public class Main {
                 } else {
                     System.out.println("Item not found in the selected category. Please enter a valid item number.");
                 }
+                // Prompt the user if they want to continue to checkout
+                System.out.print("Would you like to continue to checkout? (y/n): ");
+                String continueToCheckout = scanner.next();
+
+                if (continueToCheckout.equalsIgnoreCase("y")) {
+                    // Prompt the user to enter the total amount paid
+                    System.out.print("Please Enter the total amount paid: ");
+                    double amountPaid = scanner.nextDouble();
+
+                    // Calculate the change
+                    double change = amountPaid - (total + shipping);
+                    df.format(change);
+
+                    // Display the change to the user with two decimal places
+                    System.out.println("Change: $" + df.format(change));
+
+                    // Provide change in denominations
+                    provideChangeInDenominations(change, amountPaid);
+
+                    // Thank the user
+                    System.out.println("-----------------------------------------------------------");
+                    System.out.println("|    Thank you for using our Eco-friendly Storefront!     |");
+                    System.out.println("|        TRAVELGREEN appreciates your business!           |");
+                    System.out.println("|            The environment does too!                    |");
+                    System.out.println("|                                                         |");
+                    System.out.println("|              ENJOY YOUR NEW ESCOOTER                    |");
+                    System.out.println("-----------------------------------------------------------");
+
+                    // Break out of the outer loop
+                    break;
+                } else if (continueToCheckout.equalsIgnoreCase("n")) {
+                    // Continue to the next iteration of the outer loop
+                    System.out.println("Returning to product selection...");
+                } else {
+                    System.out.println("Invalid input. Please enter 'y' to continue to checkout or 'n' to return to product selection.");
+                }
             }
         }
+
+
 
         // Prompt the user to enter the total amount paid
         System.out.print("Please Enter the total amount paid: ");
@@ -350,11 +393,11 @@ public class Main {
             invoice.setProducts(selectedProducts);          /// not being set before this its a fucking issue and its aggravating as fuck
 
             // Debug print statement
-            System.out.println("Selected products: " + selectedProducts);
+            //System.out.println("Selected products: " + selectedProducts);         // debug statement
 
             // Calculate totals
             invoice.calculateTotals();
-            System.out.println("Invoice after calculateTotals:");                   // debug statement
+            //System.out.println("Invoice after calculateTotals:");                   // debug statement
 
             // Display the invoice
             invoice.printInvoice();

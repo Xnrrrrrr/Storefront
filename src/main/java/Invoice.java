@@ -9,7 +9,7 @@ public class Invoice {
     private Date date;
     private String customerName;
     private String customerAddress;
-    private List<Item> products;  // Assuming you have a list of items in your invoice
+    private List<Item> products;  // Assuming have a list of items in your invoice
     private double subtotal;
     private double shippingCost;
     private double taxRate;

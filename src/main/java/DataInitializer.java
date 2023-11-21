@@ -3,7 +3,7 @@ public class DataInitializer {
     public static void initializeData(MongoManager mongoManager) {
         // Create and insert sample items
         Item[][][] items = new Item[6][6][6];
-        items = new Item[6][6][6];
+        //items = new Item[6][6][6];            // possibly creating the twice intiailization error in MONGODB eat a bird fuckface
         // Initialize items here, creating 36 items and placing them in the 6x6x6 array.
         // add two to layer two
 

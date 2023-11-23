@@ -39,10 +39,42 @@ public class Main {
         DecimalFormat df = new DecimalFormat("#.##");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("Welcome to TRAVELGREEN Storefront!");
+        System.out.println(" _____                                                                                 _____ ");
+        System.out.println("( ___ )                                                                               ( ___ )");
+        System.out.println(" |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   | ");
+        System.out.println(" |   |                                                                                 |   | ");
+        System.out.println(" |   |                                                                                 |   | ");
+        System.out.println(" |   |                                                                                 |   | ");
+        System.out.println(" |   |      __        _______ _     ____ ___  __  __ _____   _____ ___                 |   | ");
+        System.out.println(" |   |      \\ \\      / / ____| |   / ___/ _ \\|  \\/  | ____| |_   _/ _ \\                |   | ");
+        System.out.println(" |   |       \\ \\ /\\ / /|  _| | |  | |  | | | | |\\/| |  _|     | || | | |               |   | ");
+        System.out.println(" |   |        \\ V  V / | |___| |__| |__| |_| | |  | | |___    | || |_| |               |   | ");
+        System.out.println(" |   |         \\_/\\_/  |_____|_____/\\____\\___/|_|  |_|_____|   |_| \\___/               |   | ");
+        System.out.println(" |   |       _____ ____      ___     _______ _     ____ ____  _____ _____ _   _        |   | ");
+        System.out.println(" |   |      |_   _|  _ \\    / \\ \\   / / ____| |   / ___|  _ \\| ____| ____| \\ | |       |   | ");
+        System.out.println(" |   |        | | | |_) |  / _ \\ \\ / /|  _| | |  | |  _| |_) |  _| |  _| |  \\| |       |   | ");
+        System.out.println(" |   |        | | |  _ <  / ___ \\ V / | |___| |__| |_| |  _ <| |___| |___| |\\  |       |   | ");
+        System.out.println(" |   |        |_| |_| \\_\\/_/   \\_\\_/  |_____|_____|\\____|_| \\_\\_____|_____|_| \\_|      |   | ");
+        System.out.println(" |   |                                                                                 |   | ");
+        System.out.println(" |   |                                                                                 |   | ");
+        System.out.println(" |   |                                                                                 |   | ");
+        System.out.println(" |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___| ");
+        System.out.println("(_____)                                                                               (_____)");
+
+
 
 
         while (true) {
+            System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println("║                                                                  ║");
+            System.out.println("║    ____ ___ ____ _   _   ___ _   _   __  __ _____ _   _ _   _    ║");
+            System.out.println("║   / ___|_ _/ ___| \\ | | |_ _| \\ | | |  \\/  | ____| \\ | | | | |   ║");
+            System.out.println("║   \\___ \\| | |  _|  \\| |  | ||  \\| | | |\\/| |  _| |  \\| | | | |   ║");
+            System.out.println("║    ___) | | |_| | |\\  |  | || |\\  | | |  | | |___| |\\  | |_| |   ║");
+            System.out.println("║   |____/___\\____|_| \\_| |___|_| \\_| |_|  |_|_____|_| \\_|\\___/    ║");
+            System.out.println("║                                                                  ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+
             System.out.println("1. Sign In");
             System.out.println("2. Register");
             System.out.println("0. Exit");

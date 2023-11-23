@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 
-
 public class Main {
 
     public static double amountPaid;
@@ -38,8 +37,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         DecimalFormat df = new DecimalFormat("#.##");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        final String BLUE = "\033[0;34m";
+        final String RESET = "\033[0m";
 
-        System.out.println(" _____                                                                                 _____ ");
+        System.out.println(BLUE +" _____                                                                                 _____ ");
         System.out.println("( ___ )                                                                               ( ___ )");
         System.out.println(" |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   | ");
         System.out.println(" |   |                                                                                 |   | ");
@@ -59,25 +60,26 @@ public class Main {
         System.out.println(" |   |                                                                                 |   | ");
         System.out.println(" |   |                                                                                 |   | ");
         System.out.println(" |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___| ");
-        System.out.println("(_____)                                                                               (_____)");
+        System.out.println("(_____)                                                                               (_____)"+ RESET);
 
 
 
 
         while (true) {
-            System.out.println("╔══════════════════════════════════════════════════════════════════╗");
-            System.out.println("║                                                                  ║");
+            final String GREEN = "\033[92m";
+            System.out.println(GREEN +"╔══════════════════════════════════════════════════════════════════╗");
             System.out.println("║    ____ ___ ____ _   _   ___ _   _   __  __ _____ _   _ _   _    ║");
             System.out.println("║   / ___|_ _/ ___| \\ | | |_ _| \\ | | |  \\/  | ____| \\ | | | | |   ║");
             System.out.println("║   \\___ \\| | |  _|  \\| |  | ||  \\| | | |\\/| |  _| |  \\| | | | |   ║");
             System.out.println("║    ___) | | |_| | |\\  |  | || |\\  | | |  | | |___| |\\  | |_| |   ║");
             System.out.println("║   |____/___\\____|_| \\_| |___|_| \\_| |_|  |_|_____|_| \\_|\\___/    ║");
-            System.out.println("║                                                                  ║");
-            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝"+ RESET);
 
-            System.out.println("1. Sign In");
-            System.out.println("2. Register");
-            System.out.println("0. Exit");
+            final String RED = "\033[91m";
+            final String PURPLE_BRIGHT = "\033[0;95m";
+            System.out.println(PURPLE_BRIGHT  +"1. Sign In existing user");
+            System.out.println(PURPLE_BRIGHT  +"2. Register new user");
+            System.out.println(RED +"0. Exit"+ RESET);
 
             System.out.print("Please choose an option: ");
             int signInOrRegister = scanner.nextInt();
@@ -96,11 +98,15 @@ public class Main {
             }
         }
 
-        System.out.println("Goodbye!");
+        System.out.println("Thank you for visiting TRAVELGREEN STOREFRONT!");
+        System.out.println("ALWAYS REMEMBER TO TRAVEL GREEN, WITH TRAVELGREEN!");
     }
 
     private static boolean signInUser(Scanner scanner) {
-        System.out.println("Enter your sign-in information:");
+        final String PURPLE_BOLD = "\033[1;35m";
+        final String RESET = "\033[0m";
+        final String RED = "\033[91m";
+        System.out.println(PURPLE_BOLD +"Enter your sign-in information:"+ RESET);
 
         System.out.print("Email: ");
         email = scanner.next().toLowerCase();
@@ -116,14 +122,14 @@ public class Main {
             Document user = customersCollection.find(query).first();
 
             if (user != null) {
-                System.out.println("Sign-in successful. Welcome back!");
+                System.out.println(PURPLE_BOLD +"Sign-in successful. Welcome back!"+ RESET);
                 return true;
             } else {
-                System.out.println("Invalid email or password. Please try again.");
+                System.out.println(RED +"Invalid email or password. Please try again."+ RESET);
                 return false;
             }
         } catch (Exception e) {
-            System.err.println("Error during sign-in: " + e.getMessage());
+            System.err.println("Error during sign-in: + " + e.getMessage());
             return false;
         }
     }
@@ -208,10 +214,11 @@ public class Main {
         // ...
         final String RESET = "\033[0m";
         final String GREEN = "\033[92m";
+        final String BLUE = "\033[0;34m";
         selectedProducts.clear();           // clears the class level variable preventing constant overlap of invoices
         Item[][][] items = inventory.getItems();
 
-        System.out.println(GREEN + "--------------------------------------");
+        System.out.println(BLUE + "--------------------------------------");
         System.out.println("|                                    |");
         System.out.println("| Welcome to TRAVELGREEN Storefront! |");
         System.out.println("|                                    |");
@@ -221,7 +228,7 @@ public class Main {
         System.out.println("|            98765                   |");
         System.out.println("--------------------------------------" + RESET);
 
-        System.out.println(GREEN + "--------------------------------------");
+        System.out.println(BLUE + "--------------------------------------");
         System.out.println("|                                    |");
         System.out.println("|       STORE DESCRIPTION!           |");
         System.out.println("|       Rated D by the BBB           |");
@@ -229,7 +236,7 @@ public class Main {
         System.out.println("|       No refunds, ever!            |");
         System.out.println("--------------------------------------" + RESET);
 
-        System.out.println(GREEN + "-------------------------------------------------------------------------------");
+        System.out.println(BLUE + "-------------------------------------------------------------------------------");
         System.out.println("|                                                                             |");
         System.out.println("|               READ OUR PERSONAL MISSION STATEMENT                           |");
         System.out.println("|     At TRAVELGREEN, we are dedicated to promoting a lifestyle               |");
@@ -239,27 +246,34 @@ public class Main {
 
         while (true) {                                          // inner loop for category selection
             // Display available categories
-            System.out.println("-----------------------------");
-            System.out.println("|    Available Categories    |");
-            System.out.println("-----------------------------");
+            System.out.println(GREEN +"╔══════════════════════════════════════════════════════════╗");
+            System.out.println("║  ____    _  _____ _____ ____  ___  ____  ___ _____ ____  ║");
+            System.out.println("║ / ___|  / \\|_   _| ____/ ___|/ _ \\|  _ \\|_ _| ____/ ___| ║");
+            System.out.println("║| |     / _ \\ | | |  _|| |  _| | | | |_) || ||  _| \\___ \\ ║");
+            System.out.println("║| |___ / ___ \\| | | |__| |_| | |_| |  _ < | || |___ ___) |║");
+            System.out.println("║ \\____/_/   \\_\\_| |______\\____|\\___/|_| \\_\\___|_____|____/║");
+            System.out.println("╚══════════════════════════════════════════════════════════╝" + RESET);
 
-            System.out.println("1. Performance E-scooters");
-            System.out.println("-------------");
-            System.out.println("2. Off-road E-scooters");
-            System.out.println("-------------");
-            System.out.println("3. Urban commuter E-scooters");
-            System.out.println("-------------");
-            System.out.println("4. Luxury E-scooters");
-            System.out.println("-------------");
-            System.out.println("5. Cargo E-scooters");
-            System.out.println("-------------");
-            System.out.println("6. Long-range E-scooters");
-            System.out.println("7. Return Items");
-            System.out.println("-------------");
-            System.out.println("0. Exit");
+            final String RED = "\033[91m";
+            final String PURPLE_BRIGHT = "\033[0;95m";
+            System.out.println(PURPLE_BRIGHT +"1. Performance E-scooters   \uD83D\uDEF4");
+            System.out.println("-----------------------------");
+            System.out.println(PURPLE_BRIGHT +"2. Off-road E-scooters      \uD83D\uDEF4");
+            System.out.println("-----------------------------");
+            System.out.println(PURPLE_BRIGHT +"3. Urban commuter E-scooters\uD83D\uDEF4");
+            System.out.println("-----------------------------");
+            System.out.println(PURPLE_BRIGHT +"4. Luxury E-scooters        \uD83D\uDEF4");
+            System.out.println("-----------------------------");
+            System.out.println(PURPLE_BRIGHT +"5. Cargo E-scooters         \uD83D\uDEF4");
+            System.out.println("-----------------------------");
+            System.out.println(PURPLE_BRIGHT +"6. Long-range E-scooters    \uD83D\uDEF4");
+            System.out.println("-----------------------------");
+            System.out.println(PURPLE_BRIGHT +"7. Return Items             \uD83E\uDDFE");
+            System.out.println("-----------------------------");
+            System.out.println(RED +"0. Exit" + RESET);
 
             // Prompt the user to choose a category
-            System.out.print("Please choose from one of our E-scooter categories (or press 0 to exit): ");
+            System.out.print("Please choose from one of our E-scooter categories(or press 0 to exit): ");
             int selectedCategory = scanner.nextInt();
 
             if (selectedCategory == 0) {
@@ -315,7 +329,7 @@ public class Main {
                     System.out.println("Item not found in the selected category. Please enter a valid item number.");
                 }
                 // Prompt the user if they want to continue to checkout
-                System.out.print("Would you like to continue to checkout? (y/n): ");
+                System.out.print("Would you like to continue to final checkout? (y/n): ");
                 String continueToCheckout = scanner.next();
 
                 System.out.println(GREEN + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
@@ -350,13 +364,42 @@ public class Main {
                     provideChangeInDenominations(change, amountPaid);
 
                     // Thank the user
-                    System.out.println("-----------------------------------------------------------");
+                    System.out.println(GREEN + "-----------------------------------------------------------");
                     System.out.println("|    Thank you for using our Eco-friendly Storefront!     |");
                     System.out.println("|        TRAVELGREEN appreciates your business!           |");
                     System.out.println("|            The environment does too!                    |");
                     System.out.println("|                                                         |");
                     System.out.println("|              ENJOY YOUR NEW ESCOOTER                    |");
-                    System.out.println("-----------------------------------------------------------");
+                    System.out.println("-----------------------------------------------------------" + RESET);
+
+                    System.out.print("\033[0;34m"); // Set color to BLUE
+                    System.out.print(
+                            "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠤⠤⠤⢒⣒⣶⣝⣦⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⣀⣀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣿⣾⣶⣻⣿⠿⠿⠿⠋⠀⠀⠀⠀⠀\n" +
+                                    "⢮⣭⣷⣿⣾⣷⡴⡌⢷⣂⣀⡀⠀⠄⢁⡼⠁⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠉⠉⠀⠀⠀⠀⠘⣆⢳⡀⠀⠄⣠⠎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠀⠀⠀⠀⠘⣾⠁⠁⡴⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⠀⢸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠀⠀⠀ ⡇⠀⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠀⠀ ⢠⠃⢀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠀⠀ ⢸⠀⢸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠀⠀ ⡼⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠀⠀ ⡇⠀⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠀ ⢠⠁⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠀ ⣸⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠀⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⢠⣿⣿⡿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⢺⣿⣿⡷⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⣿⡿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⢀⣿⣷⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣶⣶⡆⠀\n" +
+                                    "⠀⠀⠀⢸⣿⢿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣼⣿⣯⣾⣇⡀\n" +
+                                    "⠀⠀⢀⣽⣿⣿⣿⢻⣿⣿⣷⣀⣤⣤⣴⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃\n" +
+                                    "⠀⠀⠸⠋⣿⣿⣿⣶⣿⣿⣿⣷⣿⣿⣿⣻⣿⣿⣷⣿⣿⠿⢿⣛⠛⠛⢫⣹⠿⠃⠀\n" +
+                                    "⠀⢰⠁⣰⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠛⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⢸⠀⢯⣿⣿⢿⣯⣿⠿⠿⠛⠛⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
+                    );
+                    System.out.print("\u001B[0m"); // Reset color
+                    System.out.println("--------------------------------------------------------");
 
                     // Break out of the outer loop
                     break;
@@ -524,11 +567,14 @@ public class Main {
     }
 
     private static void signOut() {
-        System.out.println("Logging out...");
+        final String RED = "\033[91m";
+        final String RESET = "\033[0m";
+        System.out.println(RED +"Analyzing encrypted data... 🔍");
 
         // Reset relevant variables or perform additional log-out actions here
 
-        System.out.println("Logged out successfully.");
+        System.out.println(RED +"Executing decryption protocols... 🔐");
+        System.out.println("Elevating security protocols... 🛡️"+ RESET);
     }
 
 
@@ -615,7 +661,7 @@ public class Main {
             Document update = new Document("$set", new Document("available", true));
             itemsCollection.updateOne(query, update);
 
-            System.out.println("Product with ID " + itemId + " marked as available in the database.");
+            System.out.println("Product with ID " + itemId + " has been returned successfully.");
         } catch (Exception e) {
             System.err.println("Error marking product as available: " + e.getMessage());
         }
@@ -663,7 +709,7 @@ public class Main {
             Document update = new Document("$set", new Document("available", false));
             itemsCollection.updateOne(query, update);
 
-            System.out.println("Product with ID " + itemId + " marked as purchased in the database.");
+            System.out.println("Product with ID " + itemId + " added to your shopping cart for final checkout.");
         } catch (Exception e) {
             System.err.println("Error marking product as purchased: " + e.getMessage());
         }

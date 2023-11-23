@@ -18,6 +18,13 @@ public class Address {
         this.email = email;
     }
 
+    // In your Address class
+    @Override
+    public String toString() {
+        return street + ", " + city + ", " + state + " " + zipCode;
+    }
+
+
     public Document toDocument() {
         Document document = new Document();
         document.append("street", this.street)

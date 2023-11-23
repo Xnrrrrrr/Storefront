@@ -31,7 +31,7 @@ public class Main {
     private static final String DATABASE_NAME = "Storefront";
     private static final String CUSTOMERS_COLLECTION_NAME = "Customers";
 
-    private static final String MONGO_URI = "mongodb+srv://ganggang89001:@storefront.uzrfcey.mongodb.net/";
+    private static final String MONGO_URI = "mongodb+srv://ganggang89001:tru3XjwC825BN47g@storefront.uzrfcey.mongodb.net/";
 
     public static void main(String[] args) throws IOException {
         Inventory inventory = new Inventory();
@@ -40,6 +40,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Welcome to TRAVELGREEN Storefront!");
+
 
         while (true) {
             System.out.println("1. Sign In");
@@ -143,7 +144,7 @@ public class Main {
 
             System.out.println("Sign-up successful. Welcome, " + customerNameValue + "!");
             return newCustomer;
-        } catch (Exception e) {
+        } catch (Exception e) {                                                         // not sure why it isnt catching
             System.err.println("Error during sign-up: " + e.getMessage());
             return null;
         }
@@ -173,10 +174,12 @@ public class Main {
     private static void showProductCategories(Inventory inventory, Scanner scanner, DecimalFormat df) {
         // Your existing product category display logic
         // ...
+        final String RESET = "\033[0m";
+        final String GREEN = "\033[92m";
         selectedProducts.clear();           // clears the class level variable preventing constant overlap of invoices
         Item[][][] items = inventory.getItems();
 
-        System.out.println("--------------------------------------");
+        System.out.println(GREEN + "--------------------------------------");
         System.out.println("|                                    |");
         System.out.println("| Welcome to TRAVELGREEN Storefront! |");
         System.out.println("|                                    |");
@@ -184,23 +187,23 @@ public class Main {
         System.out.println("|     123 Progressive Parkway        |");
         System.out.println("|        Libertyville, CA            |");
         System.out.println("|            98765                   |");
-        System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------" + RESET);
 
-        System.out.println("--------------------------------------");
+        System.out.println(GREEN + "--------------------------------------");
         System.out.println("|                                    |");
         System.out.println("|       STORE DESCRIPTION!           |");
         System.out.println("|       Rated D by the BBB           |");
         System.out.println("|       We accept cash only!         |");
         System.out.println("|       No refunds, ever!            |");
-        System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------" + RESET);
 
-        System.out.println("-------------------------------------------------------------------------------");
+        System.out.println(GREEN + "-------------------------------------------------------------------------------");
         System.out.println("|                                                                             |");
         System.out.println("|               READ OUR PERSONAL MISSION STATEMENT                           |");
         System.out.println("|     At TRAVELGREEN, we are dedicated to promoting a lifestyle               |");
         System.out.println("|     that values environmental responsibility, personal freedom and          |");
         System.out.println("|     community engagement, through our sweet rides!                          |");
-        System.out.println("-------------------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------" + RESET);
 
         while (true) {                                          // inner loop for category selection
             // Display available categories
@@ -255,6 +258,7 @@ public class Main {
                 }
             }
 
+            total = 0;              // manually clears the total rolling to next invoice issue
             // Allow the user to select items from the chosen category
             while (true) {
                 System.out.print("Enter item number (or press 0 to go back to category selection): ");
@@ -281,6 +285,22 @@ public class Main {
                 // Prompt the user if they want to continue to checkout
                 System.out.print("Would you like to continue to checkout? (y/n): ");
                 String continueToCheckout = scanner.next();
+
+                System.out.println(GREEN + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+                System.out.println("⠀⠈⠛⠻⠶⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠈⢻⣆⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⢻⡏⠉⠉⠉⠉⢹⡏⠉⠉⠉⠉⣿⠉⠉⠉⠉⠉⣹⠇⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⠈⣿⣀⣀⣀⣀⣸⣧⣀⣀⣀⣀⣿⣄⣀⣀⣀⣠⡿⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠸⣧⠀⠀⠀⢸⡇⠀⠀⠀⠀⣿⠁⠀⠀⠀⣿⠃⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣧⣤⣤⣼⣧⣤⣤⣤⣤⣿⣤⣤⣤⣼⡏⠀⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⠀⠀⢸⡇⠀⠀⠀⠀⣿⠀⠀⢠⡿⠀⠀⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣷⠤⠼⠷⠤⠤⠤⠤⠿⠦⠤⠾⠃⠀⠀⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢾⣷⢶⣶⠶⠶⠶⠶⠶⠶⣶⠶⣶⡶⠀⠀⠀⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣧⣠⡿⠀⠀⠀⠀⠀⠀⢷⣄⣼⠇⠀⠀⠀⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" + RESET);
 
                 if (continueToCheckout.equalsIgnoreCase("y")) {
                     // Prompt the user to enter the total amount paid
@@ -316,31 +336,6 @@ public class Main {
                 }
             }
         }
-
-
-
-        // Prompt the user to enter the total amount paid
-        System.out.print("Please Enter the total amount paid: ");
-        double amountPaid = scanner.nextDouble();
-
-        // Calculate the change
-        double change = amountPaid - (total + shipping);
-        df.format(change);
-
-        // Display the change to the user with two decimal places
-        System.out.println("Change: $" + df.format(change));
-
-        // Provide change in denominations
-        provideChangeInDenominations(change, amountPaid);
-
-        // Thank the user
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("|    Thank you for using our Eco-friendly Storefront!     |");
-        System.out.println("|        TRAVELGREEN appreciates your business!           |");
-        System.out.println("|            The environment does too!                    |");
-        System.out.println("|                                                         |");
-        System.out.println("|              ENJOY YOUR NEW ESCOOTER                    |");
-        System.out.println("-----------------------------------------------------------");
     }
 
     private static void provideChangeInDenominations(double change, double amountPaid) {
@@ -408,6 +403,7 @@ public class Main {
 
             // Close the MongoDB client when done
             mongoManager.close();
+            selectedProducts.clear();           // clears the class level variable preventing constant overlap of invoices
         } else {
             System.out.println("Failed to fetch customer details. Unable to generate the invoice.");
         }
@@ -454,24 +450,26 @@ public class Main {
     private static final AtomicInteger orderCounter = new AtomicInteger(0);
     public static int generateOrderNumber() {
         long timestamp = System.currentTimeMillis();                            // timestamp generator
-        int uniqueId = orderCounter.getAndIncrement();
+        int uniqueId = Math.abs(orderCounter.getAndIncrement());            // wrapped in math.abs to make it absolute and never negative
         return (int) (timestamp % 1000000) * 10000 + uniqueId;
     }
 
-    private static void processReturns(Scanner scanner, Inventory inventory, DecimalFormat df ) {
+    private static void processReturns(Scanner scanner, Inventory inventory, DecimalFormat df) {
         System.out.print("Enter the item ID you want to return (or press 0 to go back): ");
         int returnItemId = scanner.nextInt();
 
         if (returnItemId == 0) {
-            return;  // Go back to the category selection
+            // Log out and go back to the category selection
+            signOut();
+            return;
         }
 
-        // Check if the item was purchased (marked as unavailable) in the Products collection
+        // Check if the item was purchased (unavailable) in the Products collection
         boolean isItemPurchased = isProductPurchased(returnItemId);
 
         if (isItemPurchased) {
-            // Mark the product as available in the database
-            markProductAsAvailable(returnItemId);
+            // Retrieve the original price of the returned product from the database
+            double originalPrice = getOriginalPrice(returnItemId);
 
             // Optionally, you can remove the item from the selectedProducts list
             Item itemToReturn = findItemById(returnItemId);
@@ -479,13 +477,51 @@ public class Main {
                 selectedProducts.remove(itemToReturn);
             }
 
-            System.out.println("Item returned and marked as available: " + getItemNameFromMongoDB(returnItemId));
+            // Mark the product as available in the database
+            markProductAsAvailable(returnItemId);
+
+            // Print the refunded amount
+            System.out.println("Item returned. Refunded Amount: $" + df.format(originalPrice));
         } else {
             System.out.println("Item not found in the Products collection or not purchased.");
         }
 
+        // Log out after processing returns and go back to the category selection
+        signOut();
         showProductCategories(inventory, scanner, df);
     }
+
+    private static void signOut() {
+        System.out.println("Logging out...");
+
+        // Reset relevant variables or perform additional log-out actions here
+
+        System.out.println("Logged out successfully.");
+    }
+
+
+
+    // Helper method to retrieve the original price of a product from MongoDB based on its ID
+    private static double getOriginalPrice(int itemId) {
+        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> itemsCollection = database.getCollection("Products");
+
+            // Query the database to get the product details
+            Document query = new Document("productId", itemId);
+            Document itemDocument = itemsCollection.find(query).first();
+
+            if (itemDocument != null) {
+                return itemDocument.getDouble("price"); // Replace "price" with the actual field name for the product price
+            } else {
+                return 0.0; // Default value if the item is not found
+            }
+        } catch (Exception e) {
+            System.err.println("Error getting original price from MongoDB: " + e.getMessage());
+            return 0.0; // Default value in case of an error
+        }
+    }
+
 
     // Helper method to check if a product was purchased (unavailable) in the database
     private static boolean isProductPurchased(int itemId) {

@@ -14,7 +14,7 @@ public class Invoice {
     private double shippingCost;
     private double taxRate;
     private double total;
-    private String paymentMethod;
+    private String paymentMethod = "cash";
     private String transactionId;
     Main a = new Main();
     double amtPaid = a.amountPaid;
@@ -22,6 +22,13 @@ public class Invoice {
     double iTotal = b.total;
     private double newTotal = iTotal + Main.shipping;
     private double change = amtPaid - newTotal;
+
+    private Customer customer;
+
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     // Constructors, getters, and setters
 
@@ -49,6 +56,7 @@ public class Invoice {
                 .append("customerName", this.customerName)
                 .append("customerAddress", this.customerAddress)
                 .append("subtotal", this.subtotal)
+                .append("customerAddress", this.customer != null ? this.customer.getshippingAddress().toDocument() : null)
                 .append("shippingCost", this.shippingCost)
                 .append("taxRate", this.taxRate)
                 .append("total", this.total)

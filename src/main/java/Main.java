@@ -586,16 +586,38 @@ public class Main {
             final String RESET = "\033[0m";
             final String RED = "\033[91m";
             final String GREEN = "\033[92m";
+
             System.out.println(RED +"Checking database for product availability...");
+            try {
+                Thread.sleep(2000); // Sleep for 2 seconds (adjust the duration as needed)
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             System.out.println("Querying inventory for stock information...");
             System.out.println("Analyzing product availability...");
             System.out.println("Verifying stock levels for requested products...");
+
+            try {
+                Thread.sleep(2000); // Sleep for 2 seconds
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             System.out.println("Processing database information for product availability...");
             System.out.println("Evaluating inventory status for the requested items...");
             System.out.println("Cross-referencing database records...");
+
+            try {
+                Thread.sleep(2000); // Sleep for 2 seconds
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             System.out.println(GREEN +"Database product return availability check complete✔\uFE0F");
             System.out.println(RED +"Item is currently available and not open for return❌ " + RESET);
         }
+
 
         // Log out after processing returns and go back to the category selection
         if (isItemPurchased) signOut();                             // conditional check for item purchased
@@ -606,22 +628,113 @@ public class Main {
         final String RED = "\033[91m";
         final String RESET = "\033[0m";
         final String GREEN = "\033[92m";
+
         System.out.println(RED +"Initiating encrypted data protocols for item return... 🔍");
 
         // Reset relevant variables or perform additional log-out actions here
 
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds (adjust the duration as needed)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println(RED +"Checking database for product availability...");
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Querying inventory for stock information...");
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Analyzing product availability...");
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Verifying stock levels for requested products...");
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Processing database information for product availability...");
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Evaluating inventory status for the requested items...");
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Cross-referencing database records...");
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println(GREEN +"Database product return availability check complete✔\uFE0F");
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println(RED +"Initiating item return protocol");
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println(RED +"Executing decryption protocols for item return... 🔐");
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Elevating security protocols for database reintegration... 🛡️"+ RESET);
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println(RED +"Executing database reorganization protocols...\uD83C\uDF10");
+
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println(GREEN+"Item return protocol complete✔\uFE0F");
         System.out.println(GREEN +"Item successfully returned and database updated...✔\uFE0F"+ RESET);
     }

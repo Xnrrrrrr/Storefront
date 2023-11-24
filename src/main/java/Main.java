@@ -102,24 +102,61 @@ public class Main {
         final String GREEN = "\033[92m";
         final String RED = "\033[91m";
         final String PURPLE_BOLD = "\033[1;35m";
-        System.out.println(RED +"Executing early shutdown protocols...");
-        System.out.println("Terminating processes.....");
-        System.out.println("Shutting down inbound connections........");
-        System.out.println("Ceasing background operations..........");
-        System.out.println(GREEN +"Early shutdown protocols complete✔\uFE0F"+ RESET);
-        System.out.println(RED +"Initiating secure shutdown procedures...........");
-        System.out.println("Closing active sessions............");
-        System.out.println("Disabling network access points............");
-        System.out.println("Wrapping up system tasks with precision..........");
-        System.out.println("Commencing shutdown sequence.............");
-        System.out.println("Finalizing security protocols.............");
-        System.out.println("Ending processes responsibly.............");
-        System.out.println("Executing termination commands.........");
-        System.out.println("Securing data before system exit...........");
-        System.out.println(GREEN +"Secure shutdown complete✔\uFE0F"+ RESET);
 
-        System.out.println(PURPLE_BOLD +"Thank you for visiting TRAVELGREEN STOREFRONT!");
-        System.out.println(GREEN +"ALWAYS REMEMBER TO TRAVEL GREEN, WITH TRAVELGREEN!"+ RESET);
+        try {
+            System.out.println(RED +"Executing early shutdown protocols...");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println("Terminating processes.....");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println("Shutting down inbound connections........");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println("Ceasing background operations..........");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println(GREEN +"Early shutdown protocols complete✔\uFE0F"+ RESET);
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println(RED +"Initiating secure shutdown procedures...........");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println("Closing active sessions............");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println("Disabling network access points............");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println("Wrapping up system tasks with precision..........");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println("Commencing shutdown sequence.............");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println("Finalizing security protocols.............");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println("Ending processes responsibly.............");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println("Executing termination commands.........");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println("Securing data before system exit...........");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println(GREEN +"Secure shutdown complete✔\uFE0F"+ RESET);
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println(PURPLE_BOLD +"Thank you for visiting TRAVELGREEN STOREFRONT!");
+            Thread.sleep(2000); // Sleep for 2 seconds
+
+            System.out.println(GREEN +"ALWAYS REMEMBER TO TRAVEL GREEN, WITH TRAVELGREEN!"+ RESET);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static boolean signInUser(Scanner scanner) {

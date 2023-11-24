@@ -30,7 +30,7 @@ public class Invoice {
         this.customer = customer;
     }
 
-    // Constructors, getters, and setters
+    // Constructors, getters, and setter
 
 
 

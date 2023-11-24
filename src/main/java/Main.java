@@ -91,15 +91,35 @@ public class Main {
                     showProductCategories(inventory, scanner, df);
                 }
             } else if (signInOrRegister == 2) {
+                final String PURPLE_BOLD = "\033[1;35m";
                 signUpNewCustomer(br);
-                System.out.println("Registration successful. You can now sign in.");
+                System.out.println(PURPLE_BOLD +"Registration successful. You can now sign in."+ RESET);
             } else {
                 System.out.println("Invalid option. Please choose a valid option.");
             }
         }
 
-        System.out.println("Thank you for visiting TRAVELGREEN STOREFRONT!");
-        System.out.println("ALWAYS REMEMBER TO TRAVEL GREEN, WITH TRAVELGREEN!");
+        final String GREEN = "\033[92m";
+        final String RED = "\033[91m";
+        final String PURPLE_BOLD = "\033[1;35m";
+        System.out.println(RED +"Executing early shutdown protocols...");
+        System.out.println("Terminating processes.....");
+        System.out.println("Shutting down inbound connections........");
+        System.out.println("Ceasing background operations..........");
+        System.out.println(GREEN +"Early shutdown protocols complete✔\uFE0F"+ RESET);
+        System.out.println(RED +"Initiating secure shutdown procedures...........");
+        System.out.println("Closing active sessions............");
+        System.out.println("Disabling network access points............");
+        System.out.println("Wrapping up system tasks with precision..........");
+        System.out.println("Commencing shutdown sequence.............");
+        System.out.println("Finalizing security protocols.............");
+        System.out.println("Ending processes responsibly.............");
+        System.out.println("Executing termination commands.........");
+        System.out.println("Securing data before system exit...........");
+        System.out.println(GREEN +"Secure shutdown complete✔\uFE0F"+ RESET);
+
+        System.out.println(PURPLE_BOLD +"Thank you for visiting TRAVELGREEN STOREFRONT!");
+        System.out.println(GREEN +"ALWAYS REMEMBER TO TRAVEL GREEN, WITH TRAVELGREEN!"+ RESET);
     }
 
     private static boolean signInUser(Scanner scanner) {
@@ -136,7 +156,10 @@ public class Main {
 
 
     private static Customer signUpNewCustomer(BufferedReader br) throws IOException {
-        System.out.println("Enter your sign-up information:");
+
+        final String PURPLE_BOLD = "\033[1;35m";
+        final String RESET = "\033[0m";
+        System.out.println(PURPLE_BOLD +"Enter your sign-up information:"+ RESET);
 
         System.out.print("Customer Name: ");
         String customerName = br.readLine();
@@ -147,10 +170,10 @@ public class Main {
         System.out.print("Password: ");
         String password = br.readLine();  // You may want to hash the password for security
 
-        System.out.println("ENTER YOUR SHIPPING ADDRESS");
+        System.out.println(PURPLE_BOLD +"ENTER YOUR SHIPPING ADDRESS"+ RESET);
         Address shippingAddress = getAddressInformation(br, "Shipping", email);
 
-        System.out.println("ENTER YOUR BILLING ADDRESS");
+        System.out.println(PURPLE_BOLD +"ENTER YOUR BILLING ADDRESS"+ RESET);
         Address billingAddress = getAddressInformation(br, "Billing", email);
 
 
@@ -180,7 +203,7 @@ public class Main {
             // Insert the new customer document into the collection
             customersCollection.insertOne(newCustomerDocument);
 
-            System.out.println("Sign-up successful. Welcome, " + customerNameValue + "!");
+            System.out.println(PURPLE_BOLD +"Sign-up successful. Welcome, " + customerNameValue + "!" + RESET);
             return newCustomer;
         } catch (Exception e) {                                                         // not sure why it isnt catching
             System.err.println("Error during sign-up: " + e.getMessage());
@@ -555,27 +578,54 @@ public class Main {
             // Mark the product as available in the database
             markProductAsAvailable(returnItemId);
 
+            final String GREEN = "\033[92m";
+            final String RESET = "\033[0m";
             // Print the refunded amount
-            System.out.println("Item returned. Refunded Amount: $" + df.format(originalPrice));
+            System.out.println(GREEN +"Item pending return. Refunded Amount: $"+ RESET + df.format(originalPrice));
         } else {
-            System.out.println("Item not found in the Products collection or not purchased.");
+            final String RESET = "\033[0m";
+            final String RED = "\033[91m";
+            final String GREEN = "\033[92m";
+            System.out.println(RED +"Checking database for product availability...");
+            System.out.println("Querying inventory for stock information...");
+            System.out.println("Analyzing product availability...");
+            System.out.println("Verifying stock levels for requested products...");
+            System.out.println("Processing database information for product availability...");
+            System.out.println("Evaluating inventory status for the requested items...");
+            System.out.println("Cross-referencing database records...");
+            System.out.println(GREEN +"Database product return availability check complete✔\uFE0F");
+            System.out.println(RED +"Item is currently available and not open for return❌ " + RESET);
         }
 
         // Log out after processing returns and go back to the category selection
-        signOut();
+        if (isItemPurchased) signOut();                             // conditional check for item purchased
         showProductCategories(inventory, scanner, df);
     }
 
     private static void signOut() {
         final String RED = "\033[91m";
         final String RESET = "\033[0m";
-        System.out.println(RED +"Analyzing encrypted data... 🔍");
+        final String GREEN = "\033[92m";
+        System.out.println(RED +"Initiating encrypted data protocols for item return... 🔍");
 
         // Reset relevant variables or perform additional log-out actions here
 
-        System.out.println(RED +"Executing decryption protocols... 🔐");
-        System.out.println("Elevating security protocols... 🛡️"+ RESET);
+        System.out.println(RED +"Checking database for product availability...");
+        System.out.println("Querying inventory for stock information...");
+        System.out.println("Analyzing product availability...");
+        System.out.println("Verifying stock levels for requested products...");
+        System.out.println("Processing database information for product availability...");
+        System.out.println("Evaluating inventory status for the requested items...");
+        System.out.println("Cross-referencing database records...");
+        System.out.println(GREEN +"Database product return availability check complete✔\uFE0F");
+        System.out.println(RED +"Initiating item return protocol");
+        System.out.println(RED +"Executing decryption protocols for item return... 🔐");
+        System.out.println("Elevating security protocols for database reintegration... 🛡️"+ RESET);
+        System.out.println(RED +"Executing database reorganization protocols...\uD83C\uDF10");
+        System.out.println(GREEN+"Item return protocol complete✔\uFE0F");
+        System.out.println(GREEN +"Item successfully returned and database updated...✔\uFE0F"+ RESET);
     }
+
 
 
 
@@ -661,7 +711,9 @@ public class Main {
             Document update = new Document("$set", new Document("available", true));
             itemsCollection.updateOne(query, update);
 
-            System.out.println("Product with ID " + itemId + " has been returned successfully.");
+            final String GREEN = "\033[92m";
+            final String RESET = "\033[0m";
+            System.out.println(GREEN +"Product with ID " + itemId + " is in the process of being returned."+ RESET);
         } catch (Exception e) {
             System.err.println("Error marking product as available: " + e.getMessage());
         }
@@ -709,7 +761,9 @@ public class Main {
             Document update = new Document("$set", new Document("available", false));
             itemsCollection.updateOne(query, update);
 
-            System.out.println("Product with ID " + itemId + " added to your shopping cart for final checkout.");
+            final String PURPLE_BRIGHT = "\033[0;95m";
+            final String RESET = "\033[0m";
+            System.out.println(PURPLE_BRIGHT +"Product with ID " + itemId + " added to your shopping cart for final checkout."+ RESET);
         } catch (Exception e) {
             System.err.println("Error marking product as purchased: " + e.getMessage());
         }

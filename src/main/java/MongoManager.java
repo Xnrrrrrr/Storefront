@@ -170,5 +170,3 @@ public class MongoManager {
 }
 
 
-// add customer integration
-//

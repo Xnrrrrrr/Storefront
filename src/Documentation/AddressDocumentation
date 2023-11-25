@@ -1,0 +1,32 @@
++--------------+
+|   Address    |
++--------------+
+| - street     |
+| - city       |
+| - state      |
+| - zipCode    |
+| - email      |
++--------------+
+| +Address()   |
+| +toString()  |
+| +toDocument()|
++--------------+
+
+
+Participant: User
+--------------
+|  User        |
+|              |
+|  +---------->| Address()
+|              |
+|              |
+|  +---------->| toString()
+|              |
+|              |
+|  +---------->| toDocument()
+|              |
+|              |
+|              |
+--------------
+Participant: Address
+--------------

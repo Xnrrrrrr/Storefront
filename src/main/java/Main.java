@@ -1,19 +1,18 @@
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
-import com.mongodb.client.model.Filters;
-import java.util.Date;
-import java.util.List;
-import java.text.DecimalFormat;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
+import com.mongodb.client.MongoClients;           // MongoDB client for establishing a connection to a MongoDB server.
+import com.mongodb.client.MongoClient;            // MongoDB client interface for working with a MongoDB server.
+import com.mongodb.client.MongoCollection;        // MongoDB collection interface for interacting with a collection in the database.
+import com.mongodb.client.MongoDatabase;          // MongoDB database interface for working with a MongoDB database.
+import org.bson.Document;                         // MongoDB Document class, representing BSON documents.
+import com.mongodb.client.model.Filters;          // MongoDB Filters for building query filters.
+import java.util.Date;                            // Date class for handling date and time information.
+import java.text.DecimalFormat;                   // DecimalFormat class for formatting decimal numbers.
+import java.util.Scanner;                         // Scanner class for reading user input from the console.
+import java.util.List;                            // List interface for working with lists.
+import java.util.ArrayList;                       // ArrayList class, an implementation of the List interface.
+import java.util.concurrent.atomic.AtomicInteger;  // AtomicInteger class, providing an atomic integer.
+import java.io.BufferedReader;                    // BufferedReader class for efficient reading of characters from the console.
+import java.io.IOException;                       // IOException class for handling input/output exceptions.
+import java.io.InputStreamReader;                  // InputStreamReader class for reading input streams efficiently.
 
 public class Main {
 
@@ -28,7 +27,7 @@ public class Main {
     private static List<Item> selectedProducts = new ArrayList<>();         //class level variable intializing a blank list
 
     private static final String DATABASE_NAME = "Storefront";
-    private static final String CUSTOMERS_COLLECTION_NAME = "Customers";
+    private static final String CUSTOMERS_COLLECTION_NAME = "Customers";       // access t the St
 
     private static final String MONGO_URI = "mongodb+srv://ganggang89001:@storefront.uzrfcey.mongodb.net/";
 
@@ -193,60 +192,81 @@ public class Main {
 
 
     private static Customer signUpNewCustomer(BufferedReader br) throws IOException {
-
         final String PURPLE_BOLD = "\033[1;35m";
         final String RESET = "\033[0m";
-        System.out.println(PURPLE_BOLD +"Enter your sign-up information:"+ RESET);
+        boolean registrationConfirmed = false;
 
-        System.out.print("Customer Name: ");
-        String customerName = br.readLine();
+        do {
+            System.out.println(PURPLE_BOLD + "Enter your sign-up information:" + RESET);
 
-        System.out.print("Email: ");
-        String email = br.readLine().toLowerCase();
+            System.out.print("Customer Name: ");
+            String customerName = br.readLine();
 
-        System.out.print("Password: ");
-        String password = br.readLine();  // You may want to hash the password for security
+            System.out.print("Email: ");
+            String email = br.readLine().toLowerCase();
 
-        System.out.println(PURPLE_BOLD +"ENTER YOUR SHIPPING ADDRESS"+ RESET);
-        Address shippingAddress = getAddressInformation(br, "Shipping", email);
+            System.out.print("Password: ");
+            String password = br.readLine();  // You may want to hash the password for security
 
-        System.out.println(PURPLE_BOLD +"ENTER YOUR BILLING ADDRESS"+ RESET);
-        Address billingAddress = getAddressInformation(br, "Billing", email);
+            System.out.println(PURPLE_BOLD + "ENTER YOUR SHIPPING ADDRESS" + RESET);
+            Address shippingAddress = getAddressInformation(br, "Shipping", email);
 
+            System.out.println(PURPLE_BOLD + "ENTER YOUR BILLING ADDRESS" + RESET);
+            Address billingAddress = getAddressInformation(br, "Billing", email);
 
-        // Create a new customer
-        Customer newCustomer = new Customer(customerName, email, shippingAddress, billingAddress);
-        String customerNameValue = newCustomer.getcustomerName();
-        Address shippingAddressValue = newCustomer.getshippingAddress();
+            System.out.println(PURPLE_BOLD +"\nPlease confirm your entered information:"+ RESET);
+            System.out.println("Customer Name: " + customerName);
+            System.out.println("Email: " + email);
+            System.out.println("Password: " + password);
+            System.out.println("Shipping Address: " + shippingAddress);
+            System.out.println("Billing Address: " + billingAddress);
 
-        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> customersCollection = database.getCollection(CUSTOMERS_COLLECTION_NAME);
+            System.out.print("Is the information correct? (Y/N): ");
+            String confirmation = br.readLine();
 
-            // Check if the email already exists in the database
-            if (customersCollection.find(Filters.eq("email", email)).first() != null) {
-                System.out.println("Email already exists. Please use a different email or sign in.");
-                return null;
+            if (confirmation.equalsIgnoreCase("Y")) {
+                registrationConfirmed = true;
+
+                // Create a new customer
+                Customer newCustomer = new Customer(customerName, email, shippingAddress, billingAddress);
+                String customerNameValue = newCustomer.getcustomerName();
+                Address shippingAddressValue = newCustomer.getshippingAddress();
+
+                try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
+                    MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+                    MongoCollection<Document> customersCollection = database.getCollection(CUSTOMERS_COLLECTION_NAME);
+
+                    // Check if the email already exists in the database
+                    if (customersCollection.find(Filters.eq("email", email)).first() != null) {
+                        System.out.println("Email already exists. Please use a different email or sign in.");
+                        return null;
+                    }
+
+                    // Create a new customer document
+                    Document newCustomerDocument = new Document("customerName", customerNameValue)
+                            .append("email", email)
+                            .append("shippingAddress", shippingAddressValue.toDocument())
+                            .append("password", password)  // You may want to hash the password for security
+                            .append("billingAddress", billingAddress.toDocument());
+
+                    // Insert the new customer document into the collection
+                    customersCollection.insertOne(newCustomerDocument);
+
+                    System.out.println(PURPLE_BOLD + "Sign-up successful. Welcome, " + customerNameValue + "!" + RESET);
+                    return newCustomer;
+                } catch (Exception e) {
+                    System.err.println("Error during sign-up: " + e.getMessage());
+                    return null;
+                }
+            } else {
+                System.out.println("Registration canceled. Please re-enter your information.");
             }
 
-            // Create a new customer document
-            Document newCustomerDocument = new Document("customerName", customerNameValue)
-                    .append("email", email)
-                    .append("shippingAddress", shippingAddressValue.toDocument())
-                    .append("password", password)  // You may want to hash the password for security
-                    .append("billingAddress", billingAddress.toDocument());
+        } while (!registrationConfirmed);
 
-
-            // Insert the new customer document into the collection
-            customersCollection.insertOne(newCustomerDocument);
-
-            System.out.println(PURPLE_BOLD +"Sign-up successful. Welcome, " + customerNameValue + "!" + RESET);
-            return newCustomer;
-        } catch (Exception e) {                                                         // not sure why it isnt catching
-            System.err.println("Error during sign-up: " + e.getMessage());
-            return null;
-        }
+        return null; // This should not be reached
     }
+
 
 
 

@@ -13,6 +13,8 @@ import java.util.concurrent.atomic.AtomicInteger;  // AtomicInteger class, provi
 import java.io.BufferedReader;                    // BufferedReader class for efficient reading of characters from the console.
 import java.io.IOException;                       // IOException class for handling input/output exceptions.
 import java.io.InputStreamReader;                  // InputStreamReader class for reading input streams efficiently.
+import java.util.concurrent.atomic.AtomicLong;
+
 
 public class Main {
 
@@ -39,7 +41,7 @@ public class Main {
         final String BLUE = "\033[0;34m";
         final String RESET = "\033[0m";
 
-        System.out.println(BLUE +" _____                                                                                 _____ ");
+        System.out.println(BLUE + " _____                                                                                 _____ ");
         System.out.println("( ___ )                                                                               ( ___ )");
         System.out.println(" |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   | ");
         System.out.println(" |   |                                                                                 |   | ");
@@ -59,26 +61,24 @@ public class Main {
         System.out.println(" |   |                                                                                 |   | ");
         System.out.println(" |   |                                                                                 |   | ");
         System.out.println(" |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___| ");
-        System.out.println("(_____)                                                                               (_____)"+ RESET);
-
-
+        System.out.println("(_____)                                                                               (_____)" + RESET);
 
 
         while (true) {
             final String GREEN = "\033[92m";
-            System.out.println(GREEN +"╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println(GREEN + "╔══════════════════════════════════════════════════════════════════╗");
             System.out.println("║    ____ ___ ____ _   _   ___ _   _   __  __ _____ _   _ _   _    ║");
             System.out.println("║   / ___|_ _/ ___| \\ | | |_ _| \\ | | |  \\/  | ____| \\ | | | | |   ║");
             System.out.println("║   \\___ \\| | |  _|  \\| |  | ||  \\| | | |\\/| |  _| |  \\| | | | |   ║");
             System.out.println("║    ___) | | |_| | |\\  |  | || |\\  | | |  | | |___| |\\  | |_| |   ║");
             System.out.println("║   |____/___\\____|_| \\_| |___|_| \\_| |_|  |_|_____|_| \\_|\\___/    ║");
-            System.out.println("╚══════════════════════════════════════════════════════════════════╝"+ RESET);
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝" + RESET);
 
             final String RED = "\033[91m";
             final String PURPLE_BRIGHT = "\033[0;95m";
-            System.out.println(PURPLE_BRIGHT  +"1. Sign In existing user");
-            System.out.println(PURPLE_BRIGHT  +"2. Register new user");
-            System.out.println(RED +"0. Exit"+ RESET);
+            System.out.println(PURPLE_BRIGHT + "1. Sign In existing user");
+            System.out.println(PURPLE_BRIGHT + "2. Register new user");
+            System.out.println(RED + "0. Exit" + RESET);
 
             System.out.print("Please choose an option: ");
             int signInOrRegister = scanner.nextInt();
@@ -92,7 +92,7 @@ public class Main {
             } else if (signInOrRegister == 2) {
                 final String PURPLE_BOLD = "\033[1;35m";
                 signUpNewCustomer(br);
-                System.out.println(PURPLE_BOLD +"Registration successful. You can now sign in."+ RESET);
+                System.out.println(PURPLE_BOLD + "Registration successful. You can now sign in." + RESET);
             } else {
                 System.out.println("Invalid option. Please choose a valid option.");
             }
@@ -103,7 +103,7 @@ public class Main {
         final String PURPLE_BOLD = "\033[1;35m";
 
         try {
-            System.out.println(RED +"Executing early shutdown protocols...");
+            System.out.println(RED + "Executing early shutdown protocols...");
             Thread.sleep(2000); // Sleep for 2 seconds
 
             System.out.println("Terminating processes.....");
@@ -115,10 +115,10 @@ public class Main {
             System.out.println("Ceasing background operations..........");
             Thread.sleep(2000); // Sleep for 2 seconds
 
-            System.out.println(GREEN +"Early shutdown protocols complete✔\uFE0F"+ RESET);
+            System.out.println(GREEN + "Early shutdown protocols complete✔\uFE0F" + RESET);
             Thread.sleep(2000); // Sleep for 2 seconds
 
-            System.out.println(RED +"Initiating secure shutdown procedures...........");
+            System.out.println(RED + "Initiating secure shutdown procedures...........");
             Thread.sleep(2000); // Sleep for 2 seconds
 
             System.out.println("Closing active sessions............");
@@ -145,13 +145,13 @@ public class Main {
             System.out.println("Securing data before system exit...........");
             Thread.sleep(2000); // Sleep for 2 seconds
 
-            System.out.println(GREEN +"Secure shutdown complete✔\uFE0F"+ RESET);
+            System.out.println(GREEN + "Secure shutdown complete✔\uFE0F" + RESET);
             Thread.sleep(2000); // Sleep for 2 seconds
 
-            System.out.println(PURPLE_BOLD +"Thank you for visiting TRAVELGREEN STOREFRONT!");
+            System.out.println(PURPLE_BOLD + "Thank you for visiting TRAVELGREEN STOREFRONT!");
             Thread.sleep(2000); // Sleep for 2 seconds
 
-            System.out.println(GREEN +"ALWAYS REMEMBER TO TRAVEL GREEN, WITH TRAVELGREEN!"+ RESET);
+            System.out.println(GREEN + "ALWAYS REMEMBER TO TRAVEL GREEN, WITH TRAVELGREEN!" + RESET);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -162,7 +162,7 @@ public class Main {
         final String PURPLE_BOLD = "\033[1;35m";
         final String RESET = "\033[0m";
         final String RED = "\033[91m";
-        System.out.println(PURPLE_BOLD +"Enter your sign-in information:"+ RESET);
+        System.out.println(PURPLE_BOLD + "Enter your sign-in information:" + RESET);
 
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
@@ -185,10 +185,10 @@ public class Main {
             Document user = customersCollection.find(query).first();
 
             if (user != null) {
-                System.out.println(PURPLE_BOLD +"Sign-in successful. Welcome back!"+ RESET);
+                System.out.println(PURPLE_BOLD + "Sign-in successful. Welcome back!" + RESET);
                 return true;
             } else {
-                System.out.println(RED +"Invalid email or password. Please try again."+ RESET);
+                System.out.println(RED + "Invalid email or password. Please try again." + RESET);
                 return false;
             }
         } catch (Exception e) {
@@ -220,8 +220,6 @@ public class Main {
             }
 
 
-
-
             System.out.print("Password: ");
             String password = br.readLine();  // You may want to hash the password for security
 
@@ -231,7 +229,7 @@ public class Main {
             System.out.println(PURPLE_BOLD + "ENTER YOUR BILLING ADDRESS" + RESET);
             Address billingAddress = getAddressInformation(br, "Billing", email);
 
-            System.out.println(PURPLE_BOLD +"\nPlease confirm your entered information:"+ RESET);
+            System.out.println(PURPLE_BOLD + "\nPlease confirm your entered information:" + RESET);
             System.out.println("Customer Name: " + customerName);
             System.out.println("Email: " + email);
             System.out.println("Password: " + password);
@@ -283,8 +281,6 @@ public class Main {
 
         return null; // This should not be reached
     }
-
-
 
 
     private static Address getAddressInformation(BufferedReader br, String addressType, String email) throws IOException {
@@ -343,7 +339,7 @@ public class Main {
 
         while (true) {                                          // inner loop for category selection
             // Display available categories
-            System.out.println(GREEN +"╔══════════════════════════════════════════════════════════╗");
+            System.out.println(GREEN + "╔══════════════════════════════════════════════════════════╗");
             System.out.println("║  ____    _  _____ _____ ____  ___  ____  ___ _____ ____  ║");
             System.out.println("║ / ___|  / \\|_   _| ____/ ___|/ _ \\|  _ \\|_ _| ____/ ___| ║");
             System.out.println("║| |     / _ \\ | | |  _|| |  _| | | | |_) || ||  _| \\___ \\ ║");
@@ -353,21 +349,21 @@ public class Main {
 
             final String RED = "\033[91m";
             final String PURPLE_BRIGHT = "\033[0;95m";
-            System.out.println(PURPLE_BRIGHT +"1. Performance E-scooters   \uD83D\uDEF4");
+            System.out.println(PURPLE_BRIGHT + "1. Performance E-scooters   \uD83D\uDEF4");
             System.out.println("-----------------------------");
-            System.out.println(PURPLE_BRIGHT +"2. Off-road E-scooters      \uD83D\uDEF4");
+            System.out.println(PURPLE_BRIGHT + "2. Off-road E-scooters      \uD83D\uDEF4");
             System.out.println("-----------------------------");
-            System.out.println(PURPLE_BRIGHT +"3. Urban commuter E-scooters\uD83D\uDEF4");
+            System.out.println(PURPLE_BRIGHT + "3. Urban commuter E-scooters\uD83D\uDEF4");
             System.out.println("-----------------------------");
-            System.out.println(PURPLE_BRIGHT +"4. Luxury E-scooters        \uD83D\uDEF4");
+            System.out.println(PURPLE_BRIGHT + "4. Luxury E-scooters        \uD83D\uDEF4");
             System.out.println("-----------------------------");
-            System.out.println(PURPLE_BRIGHT +"5. Cargo E-scooters         \uD83D\uDEF4");
+            System.out.println(PURPLE_BRIGHT + "5. Cargo E-scooters         \uD83D\uDEF4");
             System.out.println("-----------------------------");
-            System.out.println(PURPLE_BRIGHT +"6. Long-range E-scooters    \uD83D\uDEF4");
+            System.out.println(PURPLE_BRIGHT + "6. Long-range E-scooters    \uD83D\uDEF4");
             System.out.println("-----------------------------");
-            System.out.println(PURPLE_BRIGHT +"7. Return Items             \uD83E\uDDFE");
+            System.out.println(PURPLE_BRIGHT + "7. Return Items             \uD83E\uDDFE");
             System.out.println("-----------------------------");
-            System.out.println(RED +"0. Exit" + RESET);
+            System.out.println(RED + "0. Exit" + RESET);
 
             // Prompt the user to choose a category
             System.out.print("Please choose from one of our E-scooter categories(or press 0 to exit): ");
@@ -379,9 +375,9 @@ public class Main {
                 System.out.println("Invalid category number. Please enter a valid category number.");
                 continue;
             } else if (selectedCategory == 7) {
-            processReturns(scanner, inventory, df);
-            break; // Exit the loop after processing returns
-        }
+                processReturns(scanner, inventory, df);
+                break; // Exit the loop after processing returns
+            }
 
             // Display items from the selected category
             // iterate through the three layers of the array
@@ -426,7 +422,7 @@ public class Main {
                     System.out.println("Item not found in the selected category. Please enter a valid item number.");
                 }
                 // Prompt the user if they want to continue to checkout
-                System.out.print(PURPLE_BRIGHT +"Would you like to continue to final checkout? (y/n): " + RESET);
+                System.out.print(PURPLE_BRIGHT + "Would you like to continue to final checkout? (y/n): " + RESET);
                 String continueToCheckout = scanner.next();
 
                 System.out.println(GREEN + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
@@ -454,6 +450,8 @@ public class Main {
                     double change = amountPaid - (total + shipping);
                     df.format(change);
 
+
+                    System.out.println("-----------------------------------------------------------------------------------------------");
                     // Display the change to the user with two decimal places
                     System.out.println("Change: $" + df.format(change));
 
@@ -536,7 +534,7 @@ public class Main {
         System.out.println("Pennies: " + pennies);
 
 
-        generateAndDisplayInvoice(email, selectedProducts,amountPaid, total);
+        generateAndDisplayInvoice(email, selectedProducts, amountPaid, total);
 
     }
 
@@ -619,12 +617,14 @@ public class Main {
         return new Address(street, city, state, zipCode, email);
     }
 
-    private static final AtomicInteger orderCounter = new AtomicInteger(0);
-    public static int generateOrderNumber() {
-        long timestamp = System.currentTimeMillis();                            // timestamp generator
-        int uniqueId = Math.abs(orderCounter.getAndIncrement());            // wrapped in math.abs to make it absolute and never negative
-        return (int) (timestamp % 1000000) * 10000 + uniqueId;
+    private static final AtomicLong orderCounter = new AtomicLong(0);
+
+    public static long generateOrderNumber() {
+        long timestamp = System.currentTimeMillis();
+        long uniqueId = orderCounter.getAndIncrement();
+        return (timestamp % 1000000) * 10000 + uniqueId;
     }
+
 
     private static void processReturns(Scanner scanner, Inventory inventory, DecimalFormat df) {
         System.out.print("Enter the item ID you want to return (or press 0 to go back): ");
@@ -655,13 +655,13 @@ public class Main {
             final String GREEN = "\033[92m";
             final String RESET = "\033[0m";
             // Print the refunded amount
-            System.out.println(GREEN +"Item pending return. Refunded Amount: $"+ RESET + df.format(originalPrice));
+            System.out.println(GREEN + "Item pending return. Refunded Amount: $" + RESET + df.format(originalPrice));
         } else {
             final String RESET = "\033[0m";
             final String RED = "\033[91m";
             final String GREEN = "\033[92m";
 
-            System.out.println(RED +"Checking database for product availability...");
+            System.out.println(RED + "Checking database for product availability...");
             try {
                 Thread.sleep(2000); // Sleep for 2 seconds (adjust the duration as needed)
             } catch (InterruptedException e) {
@@ -688,8 +688,8 @@ public class Main {
                 e.printStackTrace();
             }
 
-            System.out.println(GREEN +"Database product return availability check complete✔\uFE0F");
-            System.out.println(RED +"Item is currently available and not open for return❌ " + RESET);
+            System.out.println(GREEN + "Database product return availability check complete✔\uFE0F");
+            System.out.println(RED + "Item is currently available and not open for return❌ " + RESET);
         }
 
 
@@ -703,7 +703,7 @@ public class Main {
         final String RESET = "\033[0m";
         final String GREEN = "\033[92m";
 
-        System.out.println(RED +"Initiating encrypted data protocols for item return... 🔍");
+        System.out.println(RED + "Initiating encrypted data protocols for item return... 🔍");
 
         // Reset relevant variables or perform additional log-out actions here
 
@@ -713,7 +713,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println(RED +"Checking database for product availability...");
+        System.out.println(RED + "Checking database for product availability...");
 
         try {
             Thread.sleep(2000); // Sleep for 2 seconds
@@ -769,7 +769,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println(GREEN +"Database product return availability check complete✔\uFE0F");
+        System.out.println(GREEN + "Database product return availability check complete✔\uFE0F");
 
         try {
             Thread.sleep(2000); // Sleep for 2 seconds
@@ -777,7 +777,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println(RED +"Initiating item return protocol");
+        System.out.println(RED + "Initiating item return protocol");
 
         try {
             Thread.sleep(2000); // Sleep for 2 seconds
@@ -785,7 +785,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println(RED +"Executing decryption protocols for item return... 🔐");
+        System.out.println(RED + "Executing decryption protocols for item return... 🔐");
 
         try {
             Thread.sleep(2000); // Sleep for 2 seconds
@@ -793,7 +793,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println("Elevating security protocols for database reintegration... 🛡️"+ RESET);
+        System.out.println("Elevating security protocols for database reintegration... 🛡️" + RESET);
 
         try {
             Thread.sleep(2000); // Sleep for 2 seconds
@@ -801,7 +801,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println(RED +"Executing database reorganization protocols...\uD83C\uDF10");
+        System.out.println(RED + "Executing database reorganization protocols...\uD83C\uDF10");
 
         try {
             Thread.sleep(2000); // Sleep for 2 seconds
@@ -809,11 +809,9 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println(GREEN+"Item return protocol complete✔\uFE0F");
-        System.out.println(GREEN +"Item successfully returned and database updated...✔\uFE0F"+ RESET);
+        System.out.println(GREEN + "Item return protocol complete✔\uFE0F");
+        System.out.println(GREEN + "Item successfully returned and database updated...✔\uFE0F" + RESET);
     }
-
-
 
 
     // Helper method to retrieve the original price of a product from MongoDB based on its ID
@@ -888,6 +886,7 @@ public class Main {
 
 
     }// Method to mark a product as available in the database
+
     private static void markProductAsAvailable(int itemId) {
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
@@ -900,7 +899,7 @@ public class Main {
 
             final String GREEN = "\033[92m";
             final String RESET = "\033[0m";
-            System.out.println(GREEN +"Product with ID " + itemId + " is in the process of being returned."+ RESET);
+            System.out.println(GREEN + "Product with ID " + itemId + " is in the process of being returned." + RESET);
         } catch (Exception e) {
             System.err.println("Error marking product as available: " + e.getMessage());
         }
@@ -939,6 +938,9 @@ public class Main {
 
 
     private static void markProductAsPurchased(int itemId) {
+        final String RESET = "\033[0m";
+        final String RED = "\033[91m";
+        final String GREEN = "\033[92m";
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
             MongoCollection<Document> itemsCollection = database.getCollection("Products");
@@ -948,14 +950,11 @@ public class Main {
             Document update = new Document("$set", new Document("available", false));
             itemsCollection.updateOne(query, update);
 
+
             final String PURPLE_BRIGHT = "\033[0;95m";
-            final String RESET = "\033[0m";
-            System.out.println(PURPLE_BRIGHT +"Product with ID " + itemId + " added to your shopping cart for final checkout."+ RESET);
+            System.out.println(PURPLE_BRIGHT + "Product with ID " + itemId + " added to your shopping cart for final checkout." + RESET);
         } catch (Exception e) {
             System.err.println("Error marking product as purchased: " + e.getMessage());
         }
     }
-
-
-
 }

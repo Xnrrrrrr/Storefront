@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 
 public class Invoice {
-    private int orderNumber;
+    private long orderNumber;
     private Date date;
     private String customerName;
     private String customerAddress;
@@ -96,7 +96,7 @@ public class Invoice {
         return subtotal + shippingCost + tax;
     }
 
-    public void setOrderNumber(int orderNumber) {
+    public void setOrderNumber(long orderNumber) {
         this.orderNumber = orderNumber;
     }
 
@@ -129,7 +129,7 @@ public class Invoice {
     }
 
     public void setProducts(List<Item> products) {
-        System.out.println("Set products: " + products);        //debug
+        //System.out.println("Set products: " + products);        //debug
         this.products = products;
     }
 
@@ -189,16 +189,16 @@ public class Invoice {
     public void printInvoice() {
         // Print the invoice details
 
-        System.out.println("------------------------------------------------------------------------------------------");
-        System.out.println("|                        INVOICE                                                         |");
+        System.out.println("-----------------------------------------------------------------------------------------------");
+        System.out.println("|                        INVOICE                                                              |");
         System.out.println("| Order Number: " + orderNumber);
         System.out.println("| Date: " + date);
-        System.out.println("| Customer: " + (customerName != null ? customerName : "null"                            ));
-        System.out.println("| Address: " + (customerAddress != null ? customerAddress : "null"                       ));
-        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("| Customer: " + (customerName != null ? customerName : "null"                                  ));
+        System.out.println("| Address: " + (customerAddress != null ? customerAddress : "null"                             ));
+        System.out.println("-----------------------------------------------------------------------------------------------");
 
         // Print product details
-        System.out.println("|                   PURCHASED ITEMS                                                     |");
+        System.out.println("|                   PURCHASED ITEMS                                                           |");
         // Debug print statement
         System.out.println("Products in invoice: " + products);                                     // debug
 
@@ -206,15 +206,14 @@ public class Invoice {
             System.out.println("| " + product.getName() + " - $" + product.getPrice());
         }
 
-        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------------------");
         System.out.println("| Subtotal: $" + subtotal);
         System.out.println("| Shipping Cost: $" + shippingCost);
         System.out.println("| Tax: $" + (subtotal * taxRate));
         System.out.println("| Total: $" + newTotal);
         System.out.println("| Payment Method: " + paymentMethod);
-        System.out.println("| Transaction ID: " + transactionId);
         System.out.println("| Amount Paid: $" + amtPaid);
         System.out.println("| Change: $" + Math.round(change * 100d) / 100d);
-        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------------------");
     }
 }

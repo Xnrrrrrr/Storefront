@@ -72,7 +72,7 @@ public class DataInitializer {
 
     public static void main(String[] args) {
         // Provide your MongoDB connection details
-        String connectionString = "mongodb+srv://ganggang89001:@storefront.60uhwaz.mongodb.net/" +
+        String connectionString = "mongodb+srv://ganggang89001:oTyY2qgRa53B3Mm2@storefront.60uhwaz.mongodb.net/" +
                 "\n";
         String databaseName = "Storefront";
         String collectionName = "Products";

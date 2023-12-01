@@ -164,8 +164,15 @@ public class Main {
         final String RED = "\033[91m";
         System.out.println(PURPLE_BOLD +"Enter your sign-in information:"+ RESET);
 
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
         System.out.print("Email: ");
         email = scanner.next().toLowerCase();
+
+        if (!email.matches(emailRegex)) {
+            System.out.println(RED + "Invalid email format. Please enter a valid email address." + RESET);
+            return false;
+        }
 
         System.out.print("Password: ");  // You may need to handle password securely (e.g., use char[] and consider hashing, NEEDS OBFUSCATION)F
         String password = scanner.next();
@@ -196,6 +203,9 @@ public class Main {
         final String RESET = "\033[0m";
         boolean registrationConfirmed = false;
 
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+
         do {
             System.out.println(PURPLE_BOLD + "Enter your sign-up information:" + RESET);
 
@@ -204,6 +214,13 @@ public class Main {
 
             System.out.print("Email: ");
             String email = br.readLine().toLowerCase();
+            if (!email.matches(emailRegex)) {
+                System.out.println("Invalid email format. Please enter a valid email address.");
+                continue;  // Continue to the next iteration of the loop
+            }
+
+
+
 
             System.out.print("Password: ");
             String password = br.readLine();  // You may want to hash the password for security

@@ -1,0 +1,100 @@
++-------------------+
+|   ConsoleColors   |
++-------------------+
+| - RESET: String   |
+| - RED: String     |
+| - GREEN: String   |
+| - BLACK: String   |
+| - YELLOW: String  |
+| - BLUE: String    |
+| - PURPLE: String  |
+| - CYAN: String    |
+| - WHITE: String   |
+| - BLACK_BOLD: String |
+| - RED_BOLD: String   |
+| - GREEN_BOLD: String |
+| - YELLOW_BOLD: String|
+| - BLUE_BOLD: String   |
+| - PURPLE_BOLD: String |
+| - CYAN_BOLD: String   |
+| - WHITE_BOLD: String  |
+| - BLACK_UNDERLINED: String |
+| - RED_UNDERLINED: String   |
+| - GREEN_UNDERLINED: String |
+| - YELLOW_UNDERLINED: String|
+| - BLUE_UNDERLINED: String   |
+| - PURPLE_UNDERLINED: String |
+| - CYAN_UNDERLINED: String   |
+| - WHITE_UNDERLINED: String  |
+| - BLACK_BACKGROUND: String |
+| - RED_BACKGROUND: String   |
+| - GREEN_BACKGROUND: String |
+| - YELLOW_BACKGROUND: String|
+| - BLUE_BACKGROUND: String   |
+| - PURPLE_BACKGROUND: String |
+| - CYAN_BACKGROUND: String   |
+| - WHITE_BACKGROUND: String  |
+| - BLACK_BRIGHT: String   |
+| - RED_BRIGHT: String     |
+| - GREEN_BRIGHT: String   |
+| - YELLOW_BRIGHT: String  |
+| - BLUE_BRIGHT: String    |
+| - PURPLE_BRIGHT: String  |
+| - CYAN_BRIGHT: String    |
+| - WHITE_BRIGHT: String   |
+| - BLACK_BOLD_BRIGHT: String   |
+| - RED_BOLD_BRIGHT: String     |
+| - GREEN_BOLD_BRIGHT: String   |
+| - YELLOW_BOLD_BRIGHT: String  |
+| - BLUE_BOLD_BRIGHT: String    |
+| - PURPLE_BOLD_BRIGHT: String  |
+| - CYAN_BOLD_BRIGHT: String    |
+| - WHITE_BOLD_BRIGHT: String   |
+| - BLACK_BACKGROUND_BRIGHT: String |
+| - RED_BACKGROUND_BRIGHT: String   |
+| - GREEN_BACKGROUND_BRIGHT: String |
+| - YELLOW_BACKGROUND_BRIGHT: String|
+| - BLUE_BACKGROUND_BRIGHT: String   |
+| - PURPLE_BACKGROUND_BRIGHT: String |
+| - CYAN_BACKGROUND_BRIGHT: String   |
+| - WHITE_BACKGROUND_BRIGHT: String  |
+| - BOLD: String               |
++-------------------+
+| + main(args: String[])     |
++-------------------+
+      +-------------------+          +-------------------+
+
+
+
+
++-------------------+          +-------------------+          +-------------------+
+|   ConsoleColors   |          |                   |          |                   |
++-------------------+          |                   |          |                   |
+| - RESET            |          |                   |          |                   |
+| - RED              |          |                   |          |                   |
+| - GREEN            |          |                   |          |                   |
+| - ... (Other colors)|         |                   |          |                   |
+| - BOLD             |          |                   |          |                   |
++-------------------+          +-------------------+          +-------------------+
+| + main(args: String[])     |  |                   |          |                   |
+|                       |          |                   |          |                   |
+|  +--------------+     |  |                   |          |                   |
+|  | Print(RED + ...)|     |                   |          |                   |
+|  +--------------+     |  |                   |          |                   |
+|        |              |  |                   |          |                   |
+|        V              |  |                   |          |                   |
+|  +--------------+     |  |                   |          |                   |
+|  | Print(GREEN + .)|     |                   |          |                   |
+|  +--------------+     |  |                   |          |                   |
+|        |              |  |                   |          |                   |
+|        V              |  |                   |          |                   |
+|  +--------------+     |  |                   |          |                   |
+|  | Print(BOLD + ...)|     |                   |          |                   |
+|  +--------------+     |  |                   |          |                   |
+|        |              |  |                   |          |                   |
+|        V              |  |                   |          |                   |
+|  +--------------+     |  |                   |          |                   |
+|  | Print(BOLD + RED)|     |                   |          |                   |
+|  +--------------+     |  |                   |          |                   |
++-------------------+          +-------------------+          +-------------------+
+

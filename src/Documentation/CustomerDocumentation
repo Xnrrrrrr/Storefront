@@ -1,0 +1,14 @@
++----------------------+
+|      Customer        |
++----------------------+
+| - customerName: String|
+| - customerEmail: String|
+| - shippingAddress: Address|
+| - billingAddress: Address|
++----------------------+
+| + Customer()         |
+| + Customer(String, String, Address, Address)|
+| + getcustomerName(): String|
+| + getshippingAddress(): Address|
+| + toDocument(): Document|
++----------------------+

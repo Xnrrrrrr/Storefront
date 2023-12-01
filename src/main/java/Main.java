@@ -29,7 +29,7 @@ public class Main {
     private static final String DATABASE_NAME = "Storefront";
     private static final String CUSTOMERS_COLLECTION_NAME = "Customers";       // access t the St
 
-    private static final String MONGO_URI = "mongodb+srv://ganggang89001:@storefront.uzrfcey.mongodb.net/";
+    private static final String MONGO_URI = "mongodb+srv://ganggang89001:@storefront.60uhwaz.mongodb.net/";
 
     public static void main(String[] args) throws IOException {
         Inventory inventory = new Inventory();
@@ -409,7 +409,7 @@ public class Main {
                     System.out.println("Item not found in the selected category. Please enter a valid item number.");
                 }
                 // Prompt the user if they want to continue to checkout
-                System.out.print("Would you like to continue to final checkout? (y/n): ");
+                System.out.print(PURPLE_BRIGHT +"Would you like to continue to final checkout? (y/n): " + RESET);
                 String continueToCheckout = scanner.next();
 
                 System.out.println(GREEN + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");

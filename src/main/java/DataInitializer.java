@@ -1,5 +1,9 @@
 public class DataInitializer {
 
+    /**
+     *
+     * @param mongoManager
+     */
     public static void initializeData(MongoManager mongoManager) {
         // Create and insert sample items
         Item[][][] items = new Item[6][6][6];
@@ -72,6 +76,10 @@ public class DataInitializer {
 
         // Add more items as needed
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         // Provide your MongoDB connection details
         String connectionString = "mongodb+srv://ganggang89001:@storefront.60uhwaz.mongodb.net/" +

@@ -22,6 +22,7 @@ public class Main {
 
     public static double total;
     public static final double shipping = 10.00;
+    public static double subtotal;
 
     private static String email;                                             //class level variable
 
@@ -33,6 +34,11 @@ public class Main {
 
     private static final String MONGO_URI = "mongodb+srv://ganggang89001:@storefront.60uhwaz.mongodb.net/";
 
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         Inventory inventory = new Inventory();
         Scanner scanner = new Scanner(System.in);
@@ -158,6 +164,11 @@ public class Main {
 
     }
 
+    /**
+     *
+     * @param scanner
+     * @return
+     */
     private static boolean signInUser(Scanner scanner) {
         final String PURPLE_BOLD = "\033[1;35m";
         final String RESET = "\033[0m";
@@ -197,7 +208,12 @@ public class Main {
         }
     }
 
-
+    /**
+     *
+     * @param br
+     * @return
+     * @throws IOException
+     */
     private static Customer signUpNewCustomer(BufferedReader br) throws IOException {
         final String PURPLE_BOLD = "\033[1;35m";
         final String RESET = "\033[0m";
@@ -282,7 +298,14 @@ public class Main {
         return null; // This should not be reached
     }
 
-
+    /**
+     *
+     * @param br
+     * @param addressType
+     * @param email
+     * @return
+     * @throws IOException
+     */
     private static Address getAddressInformation(BufferedReader br, String addressType, String email) throws IOException {
         System.out.println(addressType + " Address:");
 
@@ -301,7 +324,12 @@ public class Main {
         return new Address(street, city, state, zipCode, email);
     }
 
-
+    /**
+     *
+     * @param inventory
+     * @param scanner
+     * @param df
+     */
     private static void showProductCategories(Inventory inventory, Scanner scanner, DecimalFormat df) {
         // Your existing product category display logic
         // ...
@@ -415,6 +443,7 @@ public class Main {
                 Item selectedProduct = inventory.getItemById(selectedItem);
                 if (selectedProduct != null && selectedProduct.getCategory().ordinal() == selectedCategory - 1) {
                     total += selectedProduct.getPrice();
+                    subtotal += selectedProduct.getPrice();
                     System.out.println("Added " + selectedProduct.getName() + " to your cart.");
                     selectedProducts.add(selectedProduct);
                     markProductAsPurchased(selectedItem);
@@ -443,11 +472,19 @@ public class Main {
 
                 if (continueToCheckout.equalsIgnoreCase("y")) {
                     // Prompt the user to enter the total amount paid
-                    System.out.print("Please Enter the total amount paid: ");
+                    double newTotal = (subtotal + shipping) * 1.06;
+                    System.out.println("Total equals: $" + df.format(newTotal));
+                    System.out.println("Please enter the total amount paid: ");
                     double amountPaid = scanner.nextDouble();
 
+                    while (amountPaid < newTotal) {
+                        System.out.println("Amount paid does not meet total. Please pay proper amount.");
+                        System.out.println("Please enter the total amount paid: ");
+                        amountPaid = scanner.nextDouble();
+                    }
+
                     // Calculate the change
-                    double change = amountPaid - (total + shipping);
+                    double change = amountPaid - newTotal;
                     df.format(change);
 
 
@@ -508,6 +545,11 @@ public class Main {
         }
     }
 
+    /**
+     *
+     * @param change
+     * @param amountPaid
+     */
     private static void provideChangeInDenominations(double change, double amountPaid) {
 
         change = Math.round(change * 100d) / 100d;
@@ -538,6 +580,13 @@ public class Main {
 
     }
 
+    /**
+     *
+     * @param customerEmail
+     * @param selectedProducts
+     * @param amountPaid
+     * @param total
+     */
     // Corrected method signature
     private static void generateAndDisplayInvoice(String customerEmail, List<Item> selectedProducts, double amountPaid, double total) {
         // Generate an invoice object
@@ -579,7 +628,11 @@ public class Main {
         }
     }
 
-
+    /**
+     *
+     * @param customerEmail
+     * @return
+     */
     // Method to fetch customer details from the database based on email
     private static Customer fetchCustomerDetails(String customerEmail) {
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
@@ -606,6 +659,11 @@ public class Main {
         }
     }
 
+    /**
+     *
+     * @param addressDoc
+     * @return
+     */
     // Helper method to parse an Address Document
     private static Address parseAddress(Document addressDoc) {
         String street = addressDoc.getString("street");
@@ -619,13 +677,22 @@ public class Main {
 
     private static final AtomicLong orderCounter = new AtomicLong(0);
 
+    /**
+     *
+     * @return
+     */
     public static long generateOrderNumber() {
         long timestamp = System.currentTimeMillis();
         long uniqueId = orderCounter.getAndIncrement();
         return (timestamp % 1000000) * 10000 + uniqueId;
     }
 
-
+    /**
+     *
+     * @param scanner
+     * @param inventory
+     * @param df
+     */
     private static void processReturns(Scanner scanner, Inventory inventory, DecimalFormat df) {
         System.out.print("Enter the item ID you want to return (or press 0 to go back): ");
         int returnItemId = scanner.nextInt();
@@ -698,6 +765,9 @@ public class Main {
         showProductCategories(inventory, scanner, df);
     }
 
+    /**
+     *
+     */
     private static void signOut() {
         final String RED = "\033[91m";
         final String RESET = "\033[0m";
@@ -813,7 +883,11 @@ public class Main {
         System.out.println(GREEN + "Item successfully returned and database updated...✔\uFE0F" + RESET);
     }
 
-
+    /**
+     *
+     * @param itemId
+     * @return
+     */
     // Helper method to retrieve the original price of a product from MongoDB based on its ID
     private static double getOriginalPrice(int itemId) {
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
@@ -835,7 +909,11 @@ public class Main {
         }
     }
 
-
+    /**
+     *
+     * @param itemId
+     * @return
+     */
     // Helper method to check if a product was purchased (unavailable) in the database
     private static boolean isProductPurchased(int itemId) {
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
@@ -860,7 +938,11 @@ public class Main {
         }
     }
 
-
+    /**
+     *
+     * @param itemId
+     * @return
+     */
     // Helper method to check the availability of a product in the database
     private static boolean isProductAvailable(int itemId) {
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
@@ -887,6 +969,10 @@ public class Main {
 
     }// Method to mark a product as available in the database
 
+    /**
+     *
+     * @param itemId
+     */
     private static void markProductAsAvailable(int itemId) {
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
@@ -905,6 +991,11 @@ public class Main {
         }
     }
 
+    /**
+     *
+     * @param itemId
+     * @return
+     */
     // Method to get the name of a product from MongoDB based on its ID
     private static String getItemNameFromMongoDB(int itemId) {
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
@@ -926,7 +1017,11 @@ public class Main {
         }
     }
 
-
+    /**
+     *
+     * @param itemId
+     * @return
+     */
     private static Item findItemById(int itemId) {
         for (Item item : selectedProducts) {
             if (item.getProductId() == itemId) {
@@ -936,7 +1031,10 @@ public class Main {
         return null;
     }
 
-
+    /**
+     *
+     * @param itemId
+     */
     private static void markProductAsPurchased(int itemId) {
         final String RESET = "\033[0m";
         final String RED = "\033[91m";

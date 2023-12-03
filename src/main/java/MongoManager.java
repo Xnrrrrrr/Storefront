@@ -19,6 +19,12 @@ public class MongoManager {
 
     // Constructor to initialize the MongoDB client, connect to the specified database, and get the collection
 
+    /**
+     *
+     * @param connectionString
+     * @param databaseName
+     * @param collectionName
+     */
     public MongoManager(String connectionString, String databaseName, String collectionName) {
         // Create a connection string with the provided MongoDB connection URI
         ConnectionString connString = new ConnectionString(connectionString);
@@ -38,6 +44,10 @@ public class MongoManager {
         collection = database.getCollection(collectionName);
     }
 
+    /**
+     *
+     * @param item
+     */
     // Insert an Item into the MongoDB collection
     public void insertItem(Item item) {
         // Convert Item to MongoDB Document
@@ -47,6 +57,11 @@ public class MongoManager {
         collection.insertOne(document);
     }
 
+    /**
+     *
+     * @param productId
+     * @return
+     */
     // Retrieve an Item by its productId from the MongoDB collection
     public Item getItemById(int productId) {
         // Create a query document to find the Item by productId
@@ -63,6 +78,10 @@ public class MongoManager {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     // Retrieve all Items from the MongoDB collection
     public List<Item> getAllItems() {
         // List to store retrieved Items
@@ -80,6 +99,11 @@ public class MongoManager {
         return items;
     }
 
+    /**
+     *
+     * @param productIds
+     * @return
+     */
     public List<Item> getSelectedProducts(List<Integer> productIds) {
         List<Item> selectedProducts = new ArrayList<>();
 
@@ -103,6 +127,10 @@ public class MongoManager {
         return selectedProducts;
     }
 
+    /**
+     *
+     * @param item
+     */
     // Update an existing Item in the MongoDB collection
     public void updateItem(Item item) {
         // Get the productId of the Item to be updated
@@ -118,6 +146,10 @@ public class MongoManager {
         collection.updateOne(query, update);
     }
 
+    /**
+     *
+     * @param productId
+     */
     // Delete an Item by its productId from the MongoDB collection
     public void deleteItem(int productId) {
         // Create a query document to find the Item by productId
@@ -127,6 +159,11 @@ public class MongoManager {
         collection.deleteOne(query);
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     // Helper method to convert an Item to a MongoDB Document
     private Document itemToDocument(Item item) {
         return new Document()
@@ -137,6 +174,11 @@ public class MongoManager {
                 .append("description", item.getDescription());
     }
 
+    /**
+     *
+     * @param document
+     * @return
+     */
     // Helper method to convert a MongoDB Document to an Item
     private Item documentToItem(Document document) {
         int productId = document.getInteger("productId");
@@ -148,6 +190,10 @@ public class MongoManager {
         return new Item(productId, name, price, category, description);
     }
 
+    /**
+     *
+     * @param invoice
+     */
     // Insert an Invoice into the MongoDB collection
     public void insertInvoice(Invoice invoice) {
         // Convert Invoice to MongoDB Document
@@ -157,12 +203,19 @@ public class MongoManager {
         collection.insertOne(document);
     }
 
+    /**
+     *
+     * @param invoice
+     * @return
+     */
     // Helper method to convert an Invoice to a MongoDB Document
     private Document invoiceToDocument(Invoice invoice) {
         return invoice.toDocument();
     }
 
-
+    /**
+     *
+     */
     // Method to close the MongoDB client when done
     public void close() {
         mongoClient.close();

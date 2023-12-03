@@ -12,6 +12,13 @@ public class Customer {
 
     // New constructor for creating a customer with provided information
 
+    /**
+     *
+     * @param customerName
+     * @param customerEmail
+     * @param shippingAddress
+     * @param billingAddress
+     */
     public Customer(String customerName, String customerEmail, Address shippingAddress, Address billingAddress) {
         this.customerName = customerName;
         this.customerEmail = customerEmail;
@@ -19,14 +26,26 @@ public class Customer {
         this.billingAddress = billingAddress;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getcustomerName() {
         return this.customerName;
     }
 
+    /**
+     *
+     * @return
+     */
     public Address getshippingAddress() {
         return this.shippingAddress;
     }
 
+    /**
+     *
+     * @return
+     */
 
     public Document toDocument() {
         Document document = new Document();

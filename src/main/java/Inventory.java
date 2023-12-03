@@ -1,8 +1,10 @@
 import java.util.Scanner;
 public class Inventory {
-
     private Item[][][] items;
 
+    /**
+     *
+     */
     public Inventory() {
         items = new Item[6][6][6];
         // Initialize items here, creating 36 items and placing them in the 6x6x6 array.
@@ -60,10 +62,20 @@ public class Inventory {
 
 
     }
+
+    /**
+     *
+     * @return
+     */
     public Item[][][] getItems() {
         return items;
     }
 
+    /**
+     *
+     * @param itemId
+     * @return
+     */
     public Item getItemById(int itemId) {
         for (int x = 0; x < items.length; x++) {
             for (int y = 0; y < items[x].length; y++) {

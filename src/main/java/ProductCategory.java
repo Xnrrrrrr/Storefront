@@ -1,3 +1,6 @@
+/**
+ * Product Category class
+ */
 public enum ProductCategory {
     PERFORMANCE,
     OFFROAD,

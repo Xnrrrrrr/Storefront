@@ -75,6 +75,10 @@ public class ConsoleColors {
     // ANSI escape codes for text formatting
     public static final String BOLD = "\033[1m";
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         System.out.println(RED + "This is red text" + RESET);
         System.out.println(GREEN + "This is green text" + RESET);

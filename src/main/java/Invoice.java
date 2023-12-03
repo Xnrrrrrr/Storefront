@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import org.bson.Document;
@@ -5,6 +6,7 @@ import java.util.ArrayList;
 
 
 public class Invoice {
+    DecimalFormat df = new DecimalFormat("#.##");
     private long orderNumber;
     private Date date;
     private String customerName;
@@ -13,19 +15,24 @@ public class Invoice {
     private double subtotal;
     private double shippingCost;
     private double taxRate;
+    private String taxString = "6%";
     private double total;
-    private String paymentMethod = "cash";
+    private String paymentMethod = "Cash";
     private String transactionId;
     Main a = new Main();
     double amtPaid = a.amountPaid;
     Main b = new Main();
     double iTotal = b.total;
-    private double newTotal = iTotal + Main.shipping;
+    private double newTotal = (iTotal + Main.shipping) * 1.06;
+    private double nNewTotal = Double.parseDouble(df.format(newTotal));
     private double change = amtPaid - newTotal;
 
     private Customer customer;
 
-
+    /**
+     *
+     * @param customer
+     */
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
@@ -33,7 +40,10 @@ public class Invoice {
     // Constructors, getters, and setter
 
 
-
+    /**
+     *
+     * @return
+     */
     private double calculateSubtotal() {
         double subtotal = 0.0;
         for (Item product : products) {
@@ -42,6 +52,10 @@ public class Invoice {
         return subtotal;
     }
 
+    /**
+     *
+     * @param customer
+     */
     public void setCustomerDetails(Customer customer) {
         if (customer != null) {
             this.customerName = customer.getcustomerName();
@@ -49,31 +63,42 @@ public class Invoice {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Document toDocument() {
         Document document = new Document();
         document.append("orderNumber", this.orderNumber)
                 .append("date", this.date)
                 .append("customerName", this.customerName)
-                .append("customerAddress", this.customerAddress)
+                .append("customerAddress", (customerAddress != null ? customerAddress : "null"))
                 .append("subtotal", this.subtotal)
-                .append("customerAddress", this.customer != null ? this.customer.getshippingAddress().toDocument() : null)
+                //.append("customerAddress", this.customer != null ? this.customer.getshippingAddress().toDocument() : null)
                 .append("shippingCost", this.shippingCost)
-                .append("taxRate", this.taxRate)
-                .append("total", this.total)
+                .append("taxRate", this.taxString)
+                .append("total", this.nNewTotal)
                 .append("paymentMethod", this.paymentMethod)
-                .append("transactionId", this.transactionId)
                 .append("amountPaid", this.amtPaid);
 
         return document;
     }
 
 
-
+    /**
+     *
+     * @return
+     */
     private double calculateShippingCost() {
         // Hardcoded shipping cost
         return 10.0;
     }
 
+    /**
+     *
+     * @param products
+     * @return
+     */
     private List<Document> productsToDocumentList(List<Item> products) {
         List<Document> documentList = new ArrayList<>();
 
@@ -91,94 +116,183 @@ public class Invoice {
         return documentList;
     }
 
+    /**
+     *
+     * @return
+     */
     private double calculateTotal() {
         double tax = subtotal * taxRate;
         return subtotal + shippingCost + tax;
     }
 
+    /**
+     *
+     * @param orderNumber
+     */
     public void setOrderNumber(long orderNumber) {
         this.orderNumber = orderNumber;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getDate() {
         return date;
     }
 
+    /**
+     *
+     * @param date
+     */
     public void setDate(Date date) {
         this.date = date;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCustomerName() {
         return customerName;
     }
 
+    /**
+     *
+     * @param customerName
+     */
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCustomerAddress() {
         return customerAddress;
     }
 
-    public void setCustomerAddress(String customerAddress) {
+    /**
+     *
+     * @param customerAddress
+     * @return
+     */
+    public Object setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
+        return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Item> getProducts() {
         return products;
     }
 
+    /**
+     *
+     * @param products
+     */
     public void setProducts(List<Item> products) {
         //System.out.println("Set products: " + products);        //debug
         this.products = products;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getSubtotal() {
         return subtotal;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getShippingCost() {
         return shippingCost;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getTaxRate() {
         return taxRate;
     }
 
+    /**
+     *
+     * @param taxRate
+     */
     public void setTaxRate(double taxRate) {
         this.taxRate = taxRate;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getTotal() {
         return total;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPaymentMethod() {
         return paymentMethod;
     }
 
+    /**
+     *
+     * @param paymentMethod
+     */
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTransactionId() {
         return transactionId;
     }
 
+    /**
+     *
+     * @param transactionId
+     */
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getAmountPaid() {
         return amtPaid;
     }
 
+    /**
+     *
+     * @param amountPaid
+     */
     public void setAmountPaid(double amountPaid) {
         this.amtPaid = amountPaid;
     }
 
     // Other methods
 
+    /**
+     *
+     */
     public void calculateTotals() {
         // Calculate subtotal, shipping cost, tax, and total
         subtotal = calculateSubtotal();
@@ -186,8 +300,18 @@ public class Invoice {
         iTotal = calculateTotal();
     }
 
+    /**
+     *
+     */
     public void printInvoice() {
         // Print the invoice details
+
+        double tax = ((subtotal + shippingCost) * 0.06);
+        double total = ((subtotal + shippingCost) * 1.06);
+        double nTax = Double.parseDouble(df.format(tax));
+        double nTotal = Double.parseDouble(df.format(total));
+        double nChange = amtPaid - nTotal;
+        double newChange = Double.parseDouble(df.format(nChange));
 
         System.out.println("-----------------------------------------------------------------------------------------------");
         System.out.println("|                        INVOICE                                                              |");
@@ -200,7 +324,7 @@ public class Invoice {
         // Print product details
         System.out.println("|                   PURCHASED ITEMS                                                           |");
         // Debug print statement
-        System.out.println("Products in invoice: " + products);                                     // debug
+        //System.out.println("Products in invoice: " + products);                                     // debug
 
         for (Item product : products) {
             System.out.println("| " + product.getName() + " - $" + product.getPrice());
@@ -209,11 +333,11 @@ public class Invoice {
         System.out.println("-----------------------------------------------------------------------------------------------");
         System.out.println("| Subtotal: $" + subtotal);
         System.out.println("| Shipping Cost: $" + shippingCost);
-        System.out.println("| Tax: $" + (subtotal * taxRate));
-        System.out.println("| Total: $" + newTotal);
+        System.out.println("| Tax: $" + nTax);
+        System.out.println("| Total: $" + nTotal);
         System.out.println("| Payment Method: " + paymentMethod);
         System.out.println("| Amount Paid: $" + amtPaid);
-        System.out.println("| Change: $" + Math.round(change * 100d) / 100d);
+        System.out.println("| Change: $" + newChange);
         System.out.println("-----------------------------------------------------------------------------------------------");
     }
 }

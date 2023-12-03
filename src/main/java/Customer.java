@@ -56,4 +56,8 @@ public class Customer {
 
         return document;
     }
+
+    public String getcustomerEmail() {
+        return this.customerEmail;
+    }
 }

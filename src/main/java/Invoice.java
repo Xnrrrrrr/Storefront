@@ -19,6 +19,7 @@ public class Invoice {
     private double total;
     private String paymentMethod = "Cash";
     private String transactionId;
+    private String customerEmail;
     Main a = new Main();
     double amtPaid = a.amountPaid;
     Main b = new Main();
@@ -72,6 +73,7 @@ public class Invoice {
         document.append("orderNumber", this.orderNumber)
                 .append("date", this.date)
                 .append("customerName", this.customerName)
+                .append("email", this.customer != null ? this.customer.getcustomerEmail() : "unknown")
                 .append("customerAddress", (customerAddress != null ? customerAddress : "null"))
                 .append("subtotal", this.subtotal)
                 //.append("customerAddress", this.customer != null ? this.customer.getshippingAddress().toDocument() : null)
@@ -81,8 +83,14 @@ public class Invoice {
                 .append("paymentMethod", this.paymentMethod)
                 .append("amountPaid", this.amtPaid);
 
+        List<Document> productDocuments = productDocuments(products);
+
+        // Append the list of product documents to the invoice document
+        document.append("products", productDocuments);
+
         return document;
     }
+
 
 
     /**
@@ -99,7 +107,7 @@ public class Invoice {
      * @param products
      * @return
      */
-    private List<Document> productsToDocumentList(List<Item> products) {
+    private List<Document> productDocuments(List<Item> products) {
         List<Document> documentList = new ArrayList<>();
 
         for (Item product : products) {

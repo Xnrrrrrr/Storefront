@@ -185,7 +185,7 @@ public class Main {
             return false;
         }
 
-        System.out.print("Password: ");  // You may need to handle password securely (e.g., use char[] and consider hashing, NEEDS OBFUSCATION)F
+        System.out.print("Password: ");
         String password = scanner.next();
 
         try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
@@ -237,7 +237,7 @@ public class Main {
 
 
             System.out.print("Password: ");
-            String password = br.readLine();  // You may want to hash the password for security
+            String password = br.readLine();
 
             System.out.println(PURPLE_BOLD + "ENTER YOUR SHIPPING ADDRESS" + RESET);
             Address shippingAddress = getAddressInformation(br, "Shipping", email);
@@ -277,7 +277,7 @@ public class Main {
                     Document newCustomerDocument = new Document("customerName", customerNameValue)
                             .append("email", email)
                             .append("shippingAddress", shippingAddressValue.toDocument())
-                            .append("password", password)  // You may want to hash the password for security
+                            .append("password", password)
                             .append("billingAddress", billingAddress.toDocument());
 
                     // Insert the new customer document into the collection
@@ -331,8 +331,6 @@ public class Main {
      * @param df
      */
     private static void showProductCategories(Inventory inventory, Scanner scanner, DecimalFormat df) {
-        // Your existing product category display logic
-        // ...
         final String RESET = "\033[0m";
         final String GREEN = "\033[92m";
         final String BLUE = "\033[0;34m";
@@ -426,6 +424,7 @@ public class Main {
             }
 
             total = 0;              // manually clears the total rolling to next invoice issue
+            subtotal = 0;
             // Allow the user to select items from the chosen category
             while (true) {
                 System.out.print("Enter item number (or press 0 to go back to category selection): ");
@@ -604,7 +603,7 @@ public class Main {
             invoice.setCustomerDetails(customer);
 
             // Add selected products to the invoice
-            invoice.setProducts(selectedProducts);          /// not being set before this its a fucking issue and its aggravating as fuck
+            invoice.setProducts(selectedProducts);
 
             // Debug print statement
             //System.out.println("Selected products: " + selectedProducts);         // debug statement
@@ -706,7 +705,12 @@ public class Main {
         // Check if the item was purchased (unavailable) in the Products collection
         boolean isItemPurchased = isProductPurchased(returnItemId);
 
-        if (isItemPurchased) {
+        // Add a check to see if the product was sold to the user
+        System.out.print("Enter your email to confirm return: ");
+        String email = scanner.next();
+        boolean isSoldToUser = isSoldTo(email);
+
+        if (isItemPurchased && isSoldToUser) {
             // Retrieve the original price of the returned product from the database
             double originalPrice = getOriginalPrice(returnItemId);
 
@@ -727,7 +731,6 @@ public class Main {
             final String RESET = "\033[0m";
             final String RED = "\033[91m";
             final String GREEN = "\033[92m";
-
             System.out.println(RED + "Checking database for product availability...");
             try {
                 Thread.sleep(2000); // Sleep for 2 seconds (adjust the duration as needed)
@@ -756,12 +759,11 @@ public class Main {
             }
 
             System.out.println(GREEN + "Database product return availability check complete✔\uFE0F");
-            System.out.println(RED + "Item is currently available and not open for return❌ " + RESET);
+            System.out.println(RED + "Item is not open for return❌ " + RESET);
         }
 
-
         // Log out after processing returns and go back to the category selection
-        if (isItemPurchased) signOut();                             // conditional check for item purchased
+        if (isItemPurchased && isSoldToUser) signOut();                             // conditional check for item purchased
         showProductCategories(inventory, scanner, df);
     }
 
@@ -899,7 +901,8 @@ public class Main {
             Document itemDocument = itemsCollection.find(query).first();
 
             if (itemDocument != null) {
-                return itemDocument.getDouble("price"); // Replace "price" with the actual field name for the product price
+                double price = itemDocument.getDouble("price");
+                return (price + shipping) * 1.06;
             } else {
                 return 0.0; // Default value if the item is not found
             }
@@ -934,6 +937,35 @@ public class Main {
             }
         } catch (Exception e) {
             System.err.println("Error checking product purchase status: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     *
+     * @param email
+     * @return
+     */
+    private static boolean isSoldTo(String email) {
+        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> customersCollection = database.getCollection("Invoices");
+
+            // Query the database to check the registration status of the email
+            Document query = new Document("email", email);
+            Document userDocument = customersCollection.find(query).first();
+
+            if (userDocument != null) {
+                // Check the "registered" field
+                String registeredStatus = userDocument.getString("email");
+                return registeredStatus.equals(email);
+            } else {
+                // Handle the case where the email is not found in the database
+                System.out.println("Email not found in the Customers collection.");
+                return false;
+            }
+        } catch (Exception e) {
+            System.err.println("Error checking email registration status: " + e.getMessage());
             return false;
         }
     }

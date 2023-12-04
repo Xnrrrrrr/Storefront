@@ -32,6 +32,7 @@ public class Invoice {
 
     /**
      *
+     *
      * @param customer
      */
     public void setCustomer(Customer customer) {
@@ -60,6 +61,7 @@ public class Invoice {
     public void setCustomerDetails(Customer customer) {
         if (customer != null) {
             this.customerName = customer.getcustomerName();
+            this.customerEmail = customer.getcustomerEmail();
             this.customerAddress = customer.getshippingAddress().toString();
         }
     }
@@ -73,7 +75,7 @@ public class Invoice {
         document.append("orderNumber", this.orderNumber)
                 .append("date", this.date)
                 .append("customerName", this.customerName)
-                .append("email", this.customer != null ? this.customer.getcustomerEmail() : "unknown")
+                .append("email", this.customerEmail != null ? this.customerEmail: "unknown")
                 .append("customerAddress", (customerAddress != null ? customerAddress : "null"))
                 .append("subtotal", this.subtotal)
                 //.append("customerAddress", this.customer != null ? this.customer.getshippingAddress().toDocument() : null)
